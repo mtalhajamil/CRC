@@ -1,0 +1,87 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<div class="panel panel-default">
+				<div class="panel-heading">Registeration</div>
+				<div class="panel-body">
+
+
+					<form class="form-horizontal" role="form" >
+
+
+						<div class="form-group">
+							<label class="col-md-4 control-label">Username</label>
+							<div class="col-md-6">
+								<input type="text" class="form-control" ng-model="formData.username" name="username">
+							</div>
+						</div>
+
+						<div class="form-group" hidden>
+							<label class="col-md-4 control-label">Backup</label>
+							<div class="col-md-6">
+								<input type="text" value="admin" class="form-control" ng-model="formData.backup" name="backup">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-4 control-label">Email Address</label>
+							<div class="col-md-6">
+								<input type="email" class="form-control" ng-model="formData.email" name="email">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-4 control-label">Password</label>
+							<div class="col-md-6">
+								<input type="password" class="form-control" ng-model="formData.password" name="password">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-4 control-label">Confirm Password</label>
+							<div class="col-md-6">
+								<input type="password" class="form-control" name="password_confirmation">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-4 control-label">EFL SAP Modules</label>
+							<div class="col-md-6">
+								<dropdown-multiselect pre-selected="member.roles" model="selected_items" options="roles"></dropdown-multiselect>
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<label class="col-md-4 control-label">Role:</label>
+							
+							<span class="radio col-md-6">
+								<label>
+									<input type="radio" name="pUser" value="pUser" ng-model="formData.role">
+									Power User
+								</label>
+								<label>
+									<input type="radio" name="aManager" value="aManager" ng-model="formData.role">
+									Application Manager
+								</label>
+								<label>
+									<input type="radio" name="aOwner" value="aOwner" ng-model="formData.role">
+									Application Owner
+								</label>
+							</span>
+							
+						</div>
+						
+						<pre>selected Modules = {{selected_items | json}}</pre>
+
+						<div class="form-group">
+							<div class="col-md-6 col-md-offset-4">
+								<button type="submit" ng-click="register()" class="btn btn-primary">Register</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

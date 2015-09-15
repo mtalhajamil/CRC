@@ -1,0 +1,51 @@
+<div class="container-fluid">
+	<div class="row">
+		
+		<button ng-click="test()">Click</button>
+		<div class="panel panel-default">
+			<div class="panel-heading">User Control Panel</div>
+
+
+
+			<div class="table-responsive">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>ObjectID</th>
+							<th>Username</th>
+							<th>Email</th>
+							<th>Password</th>
+							<th>Modules</th>
+							<th>Role</th>
+							<th>Active</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<tr ng-repeat="users in usersList">
+							<td>{{users._id}}</td>
+							<td>{{users.username}}</td>
+							<td>{{users.email}}</td>
+							<td>{{users.password}}</td>
+							<td><dropdown-multiselect pre-selected="users.modules" selected-id="users._id"  name="module{{$index}}" model="users.modules" options="roles"></dropdown-multiselect></td>
+							<td><label>
+								<input type="radio" ng-change="ChangeOfRole(users._id,'pUser')" ng-model="users.role" name="role{{$index}}" value="pUser" ng-model="role">
+								Power User
+							</label>
+							<label>
+								<input type="radio" ng-change="ChangeOfRole(users._id,'aManager')" ng-model="users.role" name="role{{$index}}" value="aManager" ng-model="role">
+								Application Manager
+							</label>
+							<label>
+								<input type="radio" ng-change="ChangeOfRole(users._id,'aOwner')" ng-model="users.role" name="role{{$index}}" value="aOwner" ng-model="role">
+								Application Owner
+							</label></td>
+							<td><input type="checkbox"></td>
+						</tr>	
+					</tbody>
+				</table>
+				<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+			</div>
+		</div>
+	</div>
+</div>

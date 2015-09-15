@@ -1,0 +1,22 @@
+<div class="container-fluid">
+<h2>Write Blog</h2>
+<form class="form-horizontal" role="form">
+	
+	
+	<div class="form-group row">
+		<label class="col-md-4 control-label">Title</label>
+		<div class="col-md-6">
+			<input type="text" class="form-control" ng-model="formData.title" name="title">
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-md-4 control-label">Blog</label>
+		<div class="col-md-6">
+			<textarea cols="40" rows="5" class="form-control" ng-model="formData.blog" name="blog"></textarea>
+		</div>
+	</div>
+	
+	<button type="submit" ng-click="postBlog()" class="btn btn-default"> Post </button>
+
+</form>
+</div>
