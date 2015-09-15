@@ -1,7 +1,7 @@
 var express = require('express')
-  , passport = require('passport')
-  , util = require('util')
-  , LocalStrategy = require('passport-local').Strategy;
+, passport = require('passport')
+, util = require('util')
+, LocalStrategy = require('passport-local').Strategy;
 
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
@@ -16,43 +16,43 @@ var db = monk('localhost:27017/CRC');
 
 
 function findById(id, fn) {
-    var users = [];
-    var index = -1;
-    var found = false;
-    var collection = db.get('usercollection');
-    collection.find({}, {}, function (e, docs) {
-        users = docs;
-        for (var i = 0; users.length; i++) {
-            if (users[i]._id == id) {
-                index = i;
-                found = true;
-                break;
-            }
+  var users = [];
+  var index = -1;
+  var found = false;
+  var collection = db.get('usercollection');
+  collection.find({}, {}, function (e, docs) {
+    users = docs;
+    for (var i = 0; users.length; i++) {
+      if (users[i]._id == id) {
+        index = i;
+        found = true;
+        break;
+      }
 
-        }
-        if (found == true) {
-            fn(null, users[index]);
-        } else {
-            fn(new Error('User ' + id + ' does not exist'));
-        }
+    }
+    if (found == true) {
+      fn(null, users[index]);
+    } else {
+      fn(new Error('User ' + id + ' does not exist'));
+    }
 
-    });
+  });
 
 }
 
 function findByUsername(username, fn) {
-    var users = [];
-    var collection = db.get('usercollection');
-    collection.find({}, {}, function (e, docs) {
-        users = docs;
-        for (var i = 0, len = users.length; i < len; i++) {
-            var user = users[i];
-            if (user.username === username) {
-                return fn(null, user);
-            }
-        }
-        return fn(null, null);
-    });
+  var users = [];
+  var collection = db.get('usercollection');
+  collection.find({}, {}, function (e, docs) {
+    users = docs;
+    for (var i = 0, len = users.length; i < len; i++) {
+      var user = users[i];
+      if (user.username === username) {
+        return fn(null, user);
+      }
+    }
+    return fn(null, null);
+  });
 }
 
 
@@ -60,12 +60,12 @@ var app = express();
 
 
 app.all('*', function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', req.headers.origin);
-    res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
-    
-    next();
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+
+  next();
 });
 
 
@@ -79,7 +79,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.use(cookieParser());
 //app.use(express.methodOverride());
 app.use(session({
-  
+
   secret: 'keyboard cat'
   //resave: true,
   //saveUninitialized: true,
@@ -130,7 +130,7 @@ passport.use(new LocalStrategy(
       return done(null, user);
     })
   }
-));
+  ));
 
 
 
@@ -161,50 +161,52 @@ app.get('/faliure', function(req, res){
 
 app.post('/register', function(req, res){
 
-    var collection = db.get('userCollection');
-    console.log(req.body);
+  var collection = db.get('userCollection');
+  console.log(req.body);
     // Submit to the DB
     collection.insert(
       req.body, function (err, doc) {
         if (err) {
             // If it failed, return error
             res.send("There was a problem adding the information to the database.");
-        }
-        else {
+          }
+          else {
             res.sendStatus(200);
-        }
-    });
+          }
+        });
 
-});
+  });
 
 app.post('/postBlog', function(req, res){
 
-    var collection = db.get('blogCollection');
-    var formObject = {author:req.user.username,title:req.body.title,blog:req.body.blog};
+  var collection = db.get('blogCollection');
+  var formObject = {author:req.user.username,title:req.body.title,blog:req.body.blog};
     // Submit to the DB
     collection.insert(
       formObject, function (err, doc) {
         if (err) {
             // If it failed, return error
             res.send("There was a problem adding the information to the database.");
-        }
-        else {
+          }
+          else {
             res.sendStatus(200);
-        }
-    });
+          }
+        });
 
-});
+  });
 
 
-app.post('/updateRole', function(req, res){
+app.post('/updateUsers', function(req, res){
 
-    var collection = db.get('userCollection');
-    
-    //console.log(req.body);
+  var collection = db.get('userCollection');
 
-    // Submit to the DB
-    collection.findAndModify(
-      { _id: req.body.id }, { $set: {role: req.body.role } }, function (err, doc) {
+  //console.log(req.body);
+
+  for(var i = 0; i < req.body.length; i++) {
+   // var obj = json[i];
+
+    var promise = collection.update(
+      {_id: req.body[i].id}, req.body[i] , function (err, doc) {
         if (err) {
             // If it failed, return error
             res.send(err);
@@ -213,17 +215,48 @@ app.post('/updateRole', function(req, res){
             res.sendStatus(200);
         }
     });
+  
+    //json = req.body[i];
 
-});
+    //db.userCollection.update({_id: req.body[i].id},json);
+
+}
+
+    //console.log(req.body);
+
+    // Submit to the DB
+    
+  });
+
+
+app.post('/updateRole', function(req, res){
+
+  var collection = db.get('userCollection');
+
+    //console.log(req.body);
+
+    // Submit to the DB
+    collection.findAndModify(
+      { _id: req.body.id }, { $set: {role: req.body.role } }, function (err, doc) {
+        if (err) {
+            // If it failed, return error
+            res.send(err);
+          }
+          else {
+            res.sendStatus(200);
+          }
+        });
+
+  });
 
 app.get("/getUsers", function(req,res,next){
-  
-      var collection = db.get('userCollection');
-      collection.find({},{},function(e,docs){
 
-        res.send(docs);
+  var collection = db.get('userCollection');
+  collection.find({},{},function(e,docs){
 
-      });
+    res.send(docs);
+
+  });
 });
 
 
@@ -250,7 +283,7 @@ app.post('/login',
     res.send({auth:true});
     //res.redirect('/account');
   });
-  
+
 // POST /login
 //   This is an alternative implementation that uses a custom callback to
 //   acheive the same functionality.

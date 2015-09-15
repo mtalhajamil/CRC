@@ -78,9 +78,14 @@ controller('userControlController', function($scope,ergastAPIservice) {
     }
 
     $scope.test = function(){
-        alert($scope.usersList[1].modules);
+        ergastAPIservice.updateUsers($scope.usersList);
     }
 
+    $scope.$watch("usersList", function(newValue, oldValue){
+        console.log(newValue);
+        console.log("//////////old///////////");
+        console.log(oldValue);
+});
 
     $scope.roles = [
     {"id": "FI", "name": "Financial Accounting", "assignable": true},
@@ -116,9 +121,9 @@ controller('userControlController', function($scope,ergastAPIservice) {
 
 angular.module('app.directives', []).
 directive('dropdownMultiselect', function(){
- return {
-     restrict: 'E',
-     scope:{           
+   return {
+       restrict: 'E',
+       scope:{           
         model: '=',
         options: '=',
         pre_selected: '=preSelected'
@@ -135,7 +140,7 @@ directive('dropdownMultiselect', function(){
     "</div>" ,
     controller: function($scope){
 
-     $scope.openDropdown = function(){        
+       $scope.openDropdown = function(){        
         $scope.selected_items = [];
         for(var i=0; i<$scope.pre_selected.length; i++){      
             $scope.selected_items.push($scope.pre_selected[i].id);

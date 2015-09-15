@@ -42,6 +42,12 @@ angular.module('CRC.services', []).
         //alert(data);   
     });
     }
+
+    ergastAPI.updateUsers = function(updateJSON) {
+      $http.post('http://localhost:3030/updateUsers', updateJSON).success(function (data) {
+        //alert(data);   
+    });
+    }
     
     return ergastAPI;
 
