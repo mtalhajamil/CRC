@@ -202,11 +202,11 @@ app.post('/updateUsers', function(req, res){
 
   //console.log(req.body);
 
-  for(var i = 0; i < req.body.length; i++) {
+  //for(var i = 0; i < req.body.length; i++) {
    // var obj = json[i];
 
-    var promise = collection.update(
-      {_id: req.body[i].id}, req.body[i] , function (err, doc) {
+    collection.update(
+      {_id: req.body[1].id}, req.body[1] , function (err, doc) {
         if (err) {
             // If it failed, return error
             res.send(err);
@@ -215,12 +215,14 @@ app.post('/updateUsers', function(req, res){
             res.sendStatus(200);
         }
     });
+
   
+
     //json = req.body[i];
 
     //db.userCollection.update({_id: req.body[i].id},json);
 
-}
+//}
 
     //console.log(req.body);
 
