@@ -1,22 +1,149 @@
 <div class="container-fluid">
-<h2>Write Blog</h2>
-<form class="form-horizontal" role="form">
-	
-	
-	<div class="form-group row">
-		<label class="col-md-4 control-label">Title</label>
-		<div class="col-md-6">
-			<input type="text" class="form-control" ng-model="formData.title" name="title">
-		</div>
-	</div>
-	<div class="form-group row">
-		<label class="col-md-4 control-label">Blog</label>
-		<div class="col-md-6">
-			<textarea cols="40" rows="5" class="form-control" ng-model="formData.blog" name="blog"></textarea>
-		</div>
-	</div>
-	
-	<button type="submit" ng-click="postBlog()" class="btn btn-default"> Post </button>
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<div class="panel panel-default">
+				<div class="panel-heading">SAP Development and Change Request Form</div>
+				<div class="panel-body">
 
-</form>
-</div>
+
+					<form class="form-horizontal" role="form" >
+						
+						
+						<div class="form-group">
+							<label class="col-md-1 control-label">Date</label>
+							<div class="col-md-3">
+								<input type="text" id="date1" class="form-control" ng-model="formData.date" name="date">
+							</div>
+							
+							<label class="col-md-2 control-label">Description</label>
+							<div class="col-md-6">
+								<input type="text" class="form-control" ng-model="formData.description" name="description">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-1 control-label">Name</label>
+							<div class="col-md-3">
+								<input model="Users[0].username" type="text" class="form-control" ng-model="formData.username" name="username">
+							</div>
+							<label class="col-md-2 control-label">Designation</label>
+							<div class="radio col-md-4"><label>
+								<input type="radio" ng-model="users.role" name="role{{$index}}" value="pUser" ng-model="role">
+								Power User
+							</label>
+							<label>
+								<input type="radio" ng-model="users.role" name="role{{$index}}" value="aManager" ng-model="role">
+								Application Manager
+							</label>
+							<label>
+								<input type="radio" ng-model="users.role" name="role{{$index}}" value="aOwner" ng-model="role">
+								Application Owner
+							</label></div>
+
+										<!--<label class="col-md-2 control-label">Designation</label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" ng-model="formData.designation" name="designation">
+									</div>-->
+
+								</div>
+
+								<div class="form-group">
+									<label class="col-md-1 control-label">Division</label>
+									<div class="col-md-3">
+										<input type="text" class="form-control" ng-model="formData.division" name="division">
+									</div>
+									<label class="col-md-2 control-label">Function</label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" ng-model="formData.function" name="function">
+									</div>
+								</div>
+
+								<h3>Detailed Specifications</h3>
+
+								<div class="form-group">
+									<label class="col-md-3 control-label">Existing Process?</label>
+									<div class="col-md-9">
+										<textarea rows="3" class="form-control" ng-model="formData.existing_process" name="existing_process"></textarea>
+									</div>
+								</div>
+
+
+								<div class="form-group">
+									<label class="col-md-3 control-label">Justification of this Development or change?</label>
+									<div class="col-md-9">
+										<textarea rows="3" class="form-control" ng-model="formData.justification" name="justification"></textarea>
+									</div>
+								</div>
+								
+
+
+								<div class="form-group">
+									<label class="col-md-3 control-label">Why is SAP Standard being changed? (if applicable)</label>
+									<div class="col-md-9">
+										<textarea rows="3" class="form-control" ng-model="formData.sap_standard" name="sap_standard"></textarea>
+									</div>
+								</div>
+								
+
+								<div class="form-group">
+									<label class="col-md-3 control-label">Business Impact this development or change will make?</label>
+									<div class="col-md-9">
+										<textarea rows="3" class="form-control" ng-model="formData.business_impact" name="business_impact"></textarea>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-md-3 control-label">Steps to generate the error/bug/dump ? (if applicable)</label>
+									<div class="col-md-9">
+										<textarea rows="3" class="form-control" ng-model="formData.step_generate" name="step_generate"></textarea>
+									</div>
+								</div>
+
+
+								<div class="form-group">
+									<label class="col-md-3 control-label">Expected Results from development or change?</label>
+									<div class="col-md-9">
+										<textarea rows="3" class="form-control" ng-model="formData.expected_change" name="expected_change"></textarea>
+									</div>
+								</div>
+
+
+								<div class="form-group">
+									<label class="col-md-3 control-label">Mandotary Report Options</label>
+									<div class="col-md-9">
+										<textarea rows="3" class="form-control" ng-model="formData.mandatory_option" name="mandatory_option"></textarea>
+									</div>
+								</div>
+
+
+								<div class="form-group">
+									<label class="col-md-3 control-label">Assumptions/Notes</label>
+									<div class="col-md-9">
+										<textarea rows="3" class="form-control" ng-model="formData.assumption_notes" name="assumption_notes"></textarea>
+									</div>
+								</div>
+
+								<h3>Request Sign Off</h3>
+
+								<div class="form-group">
+									<label class="col-md-3 control-label">Sign Off Date</label>
+									<div class="col-md-9">
+										<input type="text" class="form-control" ng-model="formData.sign_off_date" name="sign_off_date">
+									</div>
+									<label class="col-md-3 control-label">Name & Signature</label>
+									<div class="col-md-9">
+										<input type="text" class="form-control" ng-model="formData.name_signature" name="name_signature">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-md-6 col-md-offset-4">
+										<button type="submit" ng-click="register()" class="btn btn-primary">Register</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>

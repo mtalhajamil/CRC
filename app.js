@@ -11,6 +11,14 @@ var monk = require('monk');
 
 var db = monk('localhost:27017/CRC');
 
+var transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        user: 'engrocrc@gmail.com',
+        pass: 'engrocrc123'
+    }
+});
+
 
 
 
@@ -166,7 +174,7 @@ app.post('/register', function(req, res){
     req.body.backup = "";
     req.body.active = true;
 
-    console.log(req.body);
+    //console.log(req.body);
     // Submit to the DB
     collection.insert(
       req.body, function (err, doc) {
@@ -203,7 +211,7 @@ app.post('/postBlog', function(req, res){
 app.post('/updateUser', function(req, res){
 
   var collection = db.get('userCollection');
-  console.log(req.body);
+ // console.log(req.body);
   collection.update(
     {_id: req.body._id}, req.body , function (err, doc) {
       if (err) {
@@ -264,6 +272,15 @@ app.get("/getUsers", function(req,res,next){
   });
 });
 
+app.post("/getUser", function(req,res,next){
+
+  console.log(req.body);
+  var collection = db.get('userCollection');
+  collection.find({'email': req.body.email, 'password': req.body.password},{},function(e,docs){
+    console.log(docs);
+    res.send(docs);
+  });
+});
 
 
 

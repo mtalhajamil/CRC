@@ -3,11 +3,18 @@ controller('indexController', function($scope,$location,$window) {
 
 
 }).
-controller('loginController', function($scope,ergastAPIservice) {
+controller('loginController', function($scope,authenticationSvc) {
+
+    // $scope.login = function() {
+    //     ergastAPIservice.sendLoginData($scope.formData);
+    // }
 
     $scope.login = function() {
-        ergastAPIservice.sendLoginData($scope.formData);
+        var response = authenticationSvc.login($scope.formData);
+        console.log(response);
     }
+
+
 
 }).
 controller('registerController', function($scope,ergastAPIservice) {
