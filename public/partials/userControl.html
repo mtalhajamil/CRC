@@ -14,6 +14,7 @@
 							<th hidden>ObjectID</th>
 							<th>Username</th>
 							<th>Email</th>
+							<th>Designation</th>
 							<th>Password</th>
 							<th>Modules</th>
 							<th>Role</th>
@@ -28,6 +29,7 @@
 							<td hidden>{{users._id}}</td>
 							<td><input type="text" class="form-control" ng-model="users.username" name="username"></td>
 							<td><input type="email" class="form-control" ng-model="users.email" name="email"></td>
+							<td><input type="text" class="form-control" ng-model="users.designation" name="designation"></td>
 							<td><input type="password" class="form-control" ng-model="users.password" name="password"></td>
 							<td><dropdown-multiselect pre-selected="users.modules" selected-id="users._id"  name="module{{$index}}" model="users.modules" options="roles"></dropdown-multiselect></td>
 							<td><div class="radio"><label>

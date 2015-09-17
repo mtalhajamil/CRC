@@ -47,14 +47,11 @@ controller('registerController', function($scope,ergastAPIservice) {
     $scope.selected_items = [];
 
 }).
-controller('composeController', function($scope,$location,$window,$rootScope,ergastAPIservice) {
-    // if(!$rootScope.auth){
-    //     $window.location.href = '/#/login';
-    // }
-    $scope.postBlog = function() {
-        ergastAPIservice.postBlog($scope.formData);
+controller('composeController', function($scope,$location,$window,$rootScope,authenticationSvc,ergastAPIservice) {
 
-    }
+   var userInfo = authenticationSvc.getUserInfo();
+   var timeStamp = new Date().getTime();
+   $scope.requestDetails = {'username': userInfo.username, 'timeStamp': new Date(timeStamp)};
 
 }).
 controller('dashboardController', function($scope,$location,$window,ergastAPIservice) {
