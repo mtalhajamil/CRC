@@ -162,7 +162,11 @@ app.get('/faliure', function(req, res){
 app.post('/register', function(req, res){
 
   var collection = db.get('userCollection');
-  console.log(req.body);
+  
+    req.body.backup = "";
+    req.body.active = true;
+
+    console.log(req.body);
     // Submit to the DB
     collection.insert(
       req.body, function (err, doc) {
@@ -196,39 +200,38 @@ app.post('/postBlog', function(req, res){
   });
 
 
-app.post('/updateUsers', function(req, res){
+app.post('/updateUser', function(req, res){
 
   var collection = db.get('userCollection');
+  console.log(req.body);
+  collection.update(
+    {_id: req.body._id}, req.body , function (err, doc) {
+      if (err) {
 
+        res.send(err);
+      }
+      else {
+        res.send("User Updated");
+      }
+    });
+});
+
+
+app.post('/deleteUser', function(req, res){
+
+  var collection = db.get('userCollection');
   //console.log(req.body);
-
-  //for(var i = 0; i < req.body.length; i++) {
-   // var obj = json[i];
-
-    collection.update(
-      {_id: req.body[1].id}, req.body[1] , function (err, doc) {
-        if (err) {
-            // If it failed, return error
-            res.send(err);
-        }
-        else {
-            res.sendStatus(200);
-        }
+  collection.remove(
+    {_id: req.body._id}, function (err, doc) {
+      if (err) {
+        res.send(err);
+      }
+      else {
+        res.send("User Deleted");
+      }
     });
 
-  
-
-    //json = req.body[i];
-
-    //db.userCollection.update({_id: req.body[i].id},json);
-
-//}
-
-    //console.log(req.body);
-
-    // Submit to the DB
-    
-  });
+});
 
 
 app.post('/updateRole', function(req, res){

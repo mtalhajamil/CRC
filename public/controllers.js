@@ -53,10 +53,6 @@ controller('composeController', function($scope,$location,$window,$rootScope,erg
 controller('dashboardController', function($scope,$location,$window,ergastAPIservice) {
 
 
-    $scope.userControl = function() {
-        $window.location.href = '/#/userControl';
-    }
-
 }).
 controller('userControlController', function($scope,ergastAPIservice) {
 
@@ -77,15 +73,27 @@ controller('userControlController', function($scope,ergastAPIservice) {
         alert("AA");
     }
 
-    $scope.test = function(){
-        ergastAPIservice.updateUsers($scope.usersList);
+    $scope.updateUser = function(index){
+        ergastAPIservice.updateUser($scope.usersList[index]);
     }
 
-    $scope.$watch("usersList", function(newValue, oldValue){
-        console.log(newValue);
-        console.log("//////////old///////////");
-        console.log(oldValue);
-});
+    $scope.deleteUser = function(index){
+
+
+        var r = confirm("Are you sure?");
+        if (r == true) {
+            ergastAPIservice.deleteUser($scope.usersList[index]);
+
+            ergastAPIservice.getUsers().success(function(res){
+              $scope.usersList = res;
+          });
+
+        }
+
+        
+
+    }
+
 
     $scope.roles = [
     {"id": "FI", "name": "Financial Accounting", "assignable": true},
@@ -100,9 +108,9 @@ controller('userControlController', function($scope,ergastAPIservice) {
     {"id": "PM", "name": "Plant Maintenance", "assignable": true},
     {"id": "BASIS", "name": "SAP Admin", "assignable": true},
     {"id": "ABAP", "name": "Programming", "assignable": true}
-    
+
     ];
-    
+
 
     $scope.member = {roles: []};
     $scope.selected_items = [];
@@ -117,6 +125,9 @@ controller('userControlController', function($scope,ergastAPIservice) {
 
 
 
+}).
+controller('statusController', function($scope,ergastAPIservice) {
+
 });
 
 angular.module('app.directives', []).
@@ -129,8 +140,7 @@ directive('dropdownMultiselect', function(){
         pre_selected: '=preSelected'
     },
     template: "<div class='btn-group' data-ng-class='{open: open}'>"+
-    "<button class='btn btn-small'>Select</button>"+
-    "<button class='btn btn-small dropdown-toggle' data-ng-click='open=!open;openDropdown()'><span class='caret'></span></button>"+
+    "<button class='btn btn-success dropdown-toggle' data-ng-click='open=!open;openDropdown()'>Module<span class='caret'></span></button>"+
     "<ul class='dropdown-menu' aria-labelledby='dropdownMenu'>" + 
     "<li><a data-ng-click='selectAll()'><i class='glyphicon glyphicon-ok-sign pull-right'></i>  Check All</a></li>" +
     "<li><a data-ng-click='deselectAll();'><i class='glyphicon glyphicon-remove-sign pull-right'></i>  Uncheck All</a></li>" +                    
