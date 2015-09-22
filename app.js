@@ -222,24 +222,24 @@ app.post('/addRequest', function(req, res){
            console.log(docs);
 
            var mailOptions = {
-    from: 'IS chain management', // sender address
-    to: docs.email, // list of receivers
-    subject: 'A Change in Module has been requested', // Subject line
-    text: 'A change is requested in the T-3243 by xyz. see the following link', // plaintext body
-    html: '<b>A change is requested in the T-3243 by xyz. see the following link ✔</b>' // html body
-  };
+              from: 'IS chain management', // sender address
+              to: docs.email, // list of receivers
+              subject: 'A Change in Module has been requested', // Subject line
+              text: 'A change is requested in the T-3243 by xyz. see the following link', // plaintext body
+              html: '<b>A change is requested in the T-3243 by xyz. see the following link ✔</b>' // html body
+            };
 
-  transporter.sendMail(mailOptions, function(error, info){
-    if(error){
-      res.send("Email Not Sent");
-    }else{
-      res.send("Email Sent To Application Manager" + docs.email);
-    }
-  });
-}
+            transporter.sendMail(mailOptions, function(error, info){
+              if(error){
+                res.send("Email Not Sent");
+              }else{
+                res.send("Email Sent To Application Manager" + docs.email);
+              }
+            });
+          }
+        });
+
 });
-
-  });
 
 
 
