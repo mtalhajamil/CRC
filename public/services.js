@@ -23,9 +23,32 @@ factory('ergastAPIservice', function($http,$location,$window,$rootScope) {
 
   }
 
+    ergastAPI.sendRequest = function(formData) {
+    $http.post('/addRequest', formData).success(function (data) {
+     alert(data);   
+    });
+
+  }
+
   ergastAPI.postBlog = function(formData) {
     $http.post('/postBlog', formData).success(function (data) {   
       alert("Blog Posted");
+    });
+
+  }
+
+  ergastAPI.getRequest = function(id){
+     return $http({
+        method: 'GET',
+        url: '/getRequest'
+    });
+
+  }
+
+  ergastAPI.getRequestName =function (){
+    return $http({
+        method: 'GET',
+        url: '/getRequestName'
     });
 
   }
@@ -62,15 +85,15 @@ factory('ergastAPIservice', function($http,$location,$window,$rootScope) {
 factory("authenticationSvc", function($http, $q, $window) {
   var userInfo;
 
+  
 
   function init() {
-    if ($window.sessionStorage["userInfo"]) {
+    if ($window.sessionStorage["userInfo"] !== "undefined") {
       userInfo = JSON.parse($window.sessionStorage["userInfo"]);
-    }
+     }
   }
 
   init();
-
   
 
   function login(dataJSON) {
@@ -87,6 +110,9 @@ factory("authenticationSvc", function($http, $q, $window) {
 
     return deferred.promise;
   }
+
+
+
 
   function getUserInfo() {
     return userInfo;

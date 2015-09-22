@@ -38,6 +38,7 @@ angular
 	when("/dashboard", {templateUrl: "partials/dashboard.html", controller: "dashboardController"}).
 	when("/compose", {templateUrl: "partials/compose.html", controller: "composeController"}).
 	when("/userControl", {templateUrl: "partials/userControl.html", controller: "userControlController"}).
+	when("/request",{templateUrl:"partials/request.html",controller: "requestController"}).
 	when("/status", {templateUrl: "partials/status.html", controller: "statusController"}).
 	otherwise({redirectTo: '/dashboard'});
 }]);

@@ -10,128 +10,129 @@
 
 
 						<div class="form-group">
-							<label class="col-md-1 control-label">Date</label>
-							<div class="col-md-3">
-								<input type="text" id="date1" class="form-control" ng-model="requestDetails.timeStamp" name="timeStamp" disabled>
+							<label class="col-md-2 control-label">Date</label>
+							<div class="col-md-10">
+								<input type="text" id="date1" class="form-control" ng-model="formData.timeStamp" name="timeStamp" disabled>
 							</div>
+						</div>
 
+						<div class="form-group">
 							<label class="col-md-2 control-label">Description</label>
-							<div class="col-md-6">
+							<div class="col-md-10">
 								<input type="text" class="form-control" ng-model="formData.description" name="description">
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-1 control-label">Name</label>
-							<div class="col-md-3">
-								<input type="text" class="form-control" ng-model="requestDetails.username" name="username" disabled>
+							<label class="col-md-2 control-label">Name</label>
+							<div class="col-md-10">
+								<input type="text" class="form-control" ng-model="formData.username" name="username" disabled>
 							</div>
-							<label class="col-md-2 control-label">Designation</label>
-							<div class="radio col-md-4"><label>
-								<input type="radio" ng-model="users.role" name="role{{$index}}" value="pUser" ng-model="role">
-								Power User
-							</label>
-							<label>
-								<input type="radio" ng-model="users.role" name="role{{$index}}" value="aManager" ng-model="role">
-								Application Manager
-							</label>
-							<label>
-								<input type="radio" ng-model="users.role" name="role{{$index}}" value="aOwner" ng-model="role">
-								Application Owner
-							</label></div>
-
-										<!--<label class="col-md-2 control-label">Designation</label>
-									<div class="col-md-6">
-										<input type="text" class="form-control" ng-model="formData.designation" name="designation">
-									</div>-->
-
-								</div>
-
-								<div class="form-group">
-									<label class="col-md-1 control-label">Division</label>
-									<div class="col-md-3">
-										<input type="text" class="form-control" ng-model="formData.division" name="division">
-									</div>
-									<label class="col-md-2 control-label">Function</label>
-									<div class="col-md-6">
-										<input type="text" class="form-control" ng-model="formData.function" name="function">
-									</div>
-								</div>
-
-								<h3>Detailed Specifications</h3>
-
-								<div class="form-group">
-									<label class="col-md-3 control-label">Existing Process?</label>
-									<div class="col-md-9">
-										<textarea rows="3" class="form-control" ng-model="formData.existing_process" name="existing_process"></textarea>
-									</div>
-								</div>
-
-
-								<div class="form-group">
-									<label class="col-md-3 control-label">Justification of this Development or change?</label>
-									<div class="col-md-9">
-										<textarea rows="3" class="form-control" ng-model="formData.justification" name="justification"></textarea>
-									</div>
-								</div>
-								
-
-
-								<div class="form-group">
-									<label class="col-md-3 control-label">Why is SAP Standard being changed? (if applicable)</label>
-									<div class="col-md-9">
-										<textarea rows="3" class="form-control" ng-model="formData.sap_standard" name="sap_standard"></textarea>
-									</div>
-								</div>
-
-
-								<div class="form-group">
-									<label class="col-md-3 control-label">Business Impact this development or change will make?</label>
-									<div class="col-md-9">
-										<textarea rows="3" class="form-control" ng-model="formData.business_impact" name="business_impact"></textarea>
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label class="col-md-3 control-label">Steps to generate the error/bug/dump ? (if applicable)</label>
-									<div class="col-md-9">
-										<textarea rows="3" class="form-control" ng-model="formData.step_generate" name="step_generate"></textarea>
-									</div>
-								</div>
-
-
-								<div class="form-group">
-									<label class="col-md-3 control-label">Expected Results from development or change?</label>
-									<div class="col-md-9">
-										<textarea rows="3" class="form-control" ng-model="formData.expected_change" name="expected_change"></textarea>
-									</div>
-								</div>
-
-
-								<div class="form-group">
-									<label class="col-md-3 control-label">Mandotary Report Options</label>
-									<div class="col-md-9">
-										<textarea rows="3" class="form-control" ng-model="formData.mandatory_option" name="mandatory_option"></textarea>
-									</div>
-								</div>
-
-
-								<div class="form-group">
-									<label class="col-md-3 control-label">Assumptions/Notes</label>
-									<div class="col-md-9">
-										<textarea rows="3" class="form-control" ng-model="formData.assumption_notes" name="assumption_notes"></textarea>
-									</div>
-								</div>
-
-
-								<div class="form-group">
-									<div class="col-md-6 col-md-offset-4">
-										<button type="submit" ng-click="register()" class="btn btn-success">Submit Request</button>
-									</div>
-								</div>
-							</form>
 						</div>
-					</div>
+
+						<div class="form-group">
+							<label class="col-md-2 control-label">Designation</label>
+							<div class="col-md-10">
+								<input type="text" class="form-control" ng-model="formData.designation" name="designation" disabled>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-2 control-label">Division</label>
+							<div class="col-md-10">
+								<input type="text" class="form-control" ng-model="formData.division" name="division">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-2 control-label">Function</label>
+							<div class="col-md-10 dropdown">
+								<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+									Select A Module: {{formData.func}}
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+								<li ng-repeat="option in modules"><a ng-click="dropboxitemselected(option)">{{option}}</a></li>
+								</ul>
+							</div>
+							
+						</div>
+
+						<h3>Detailed Specifications</h3>
+
+						<div class="form-group">
+							<label class="col-md-3 control-label">Existing Process?</label>
+							<div class="col-md-9">
+								<textarea rows="3" class="form-control" ng-model="formData.existing_process" name="existing_process"></textarea>
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<label class="col-md-3 control-label">Justification of this Development or change?</label>
+							<div class="col-md-9">
+								<textarea rows="3" class="form-control" ng-model="formData.justification" name="justification"></textarea>
+							</div>
+						</div>
+
+
+
+						<div class="form-group">
+							<label class="col-md-3 control-label">Why is SAP Standard being changed? (if applicable)</label>
+							<div class="col-md-9">
+								<textarea rows="3" class="form-control" ng-model="formData.sap_standard" name="sap_standard"></textarea>
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<label class="col-md-3 control-label">Business Impact this development or change will make?</label>
+							<div class="col-md-9">
+								<textarea rows="3" class="form-control" ng-model="formData.business_impact" name="business_impact"></textarea>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-3 control-label">Steps to generate the error/bug/dump ? (if applicable)</label>
+							<div class="col-md-9">
+								<textarea rows="3" class="form-control" ng-model="formData.step_generate" name="step_generate"></textarea>
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<label class="col-md-3 control-label">Expected Results from development or change?</label>
+							<div class="col-md-9">
+								<textarea rows="3" class="form-control" ng-model="formData.expected_change" name="expected_change"></textarea>
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<label class="col-md-3 control-label">Mandotary Report Options</label>
+							<div class="col-md-9">
+								<textarea rows="3" class="form-control" ng-model="formData.mandatory_option" name="mandatory_option"></textarea>
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<label class="col-md-3 control-label">Assumptions/Notes</label>
+							<div class="col-md-9">
+								<textarea rows="3" class="form-control" ng-model="formData.assumption_notes" name="assumption_notes"></textarea>
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<div class="col-md-6 col-md-offset-3">
+								<button type="submit" ng-click="register()" class="btn btn-success">Submit Request And Email To Application Manager</button>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
+	</div>
+</div>

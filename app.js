@@ -147,12 +147,13 @@ app.get("/getUsers", function(req,res,next){
   });
 });
 
-app.post("/getUser", function(req,res,next){
 
-  console.log(req.body);
+
+app.post("/getUser", function(req,res,next){
+  //console.log(req.body);
   var collection = db.get('userCollection');
   collection.find({'email': req.body.email, 'password': req.body.password},{},function(e,docs){
-    console.log(docs);
+    //console.log(docs);
     res.send(docs);
   });
 });
@@ -164,41 +165,87 @@ app.post("/getUser", function(req,res,next){
 /////////////////////////////request/////////////////////////////////
 
 
+app.get("/getRequestName",function(req,res,next){
+
+  var collection = db.get('cycle');
+  collection.find({},{sort: {'description':1}, fields: { 'assumption_notes': 0}},function(e,docs){
+    res.send(docs);
+  });
+
+
+});
+
+app.post("/getRequest", function(req,res,next){
+  var collection = db.get('cycle');
+
+  collection.findById(req.body._id, function(err,docs){
+      //console.log(docs);
+      res.send(docs);
+    });
+
+});
+
+
 app.post('/addRequest', function(req, res){
 
 
-  var mailOptions = {
+
+
+
+  var data = {"request": req.body};
+  data.status = "initial";
+  data.approvedBy = "none";
+
+  var collection = db.get('cycle');
+  //console.log(req.body.username);
+    // Submit to the DB
+    collection.insert(
+      data, function (err, doc) {
+        if (err) {
+            // If it failed, return error
+            res.send("There was a problem adding the information to the database.");
+            //console.log("faliure");
+          }
+          else {
+            res.send("Record Inserted"); 
+          }
+        });
+
+    var collection2 = db.get('userCollection');
+    collection2.find({'role': "aManager", 'modules': [req.body.func]},{},function (err, doc) {
+      if (err) {
+            // If it failed, return error
+            res.send("There was a problem adding the information to the database.");
+            //console.log("faliure");
+          }
+          else {
+           console.log(docs);
+
+           var mailOptions = {
     from: 'IS chain management', // sender address
-    to: 'ameerhamza810@gmail.com, ameer.hamza103@yahoo.com', // list of receivers
+    to: docs.email, // list of receivers
     subject: 'A Change in Module has been requested', // Subject line
     text: 'A change is requested in the T-3243 by xyz. see the following link', // plaintext body
     html: '<b>A change is requested in the T-3243 by xyz. see the following link ✔</b>' // html body
   };
 
-  var collection = db.get('usercollection');
-  console.log(req.body);
-    // Submit to the DB
-    collection.insert(
-      req.body, function (err, doc) {
-        if (err) {
-            // If it failed, return error
-            res.send("There was a problem adding the information to the database.");
-            console.log("faliure");
-          }
-          else {
-            console.log("success");
-            res.sendStatus(200);
-          }
-        });
+  transporter.sendMail(mailOptions, function(error, info){
+    if(error){
+      res.send("Email Not Sent");
+    }else{
+      res.send("Email Sent To Application Manager" + docs.email);
+    }
+  });
+}
+});
+
+  });
+
+
+
 
     // send mail with defined transport object
-    transporter.sendMail(mailOptions, function(error, info){
-      if(error){
-        console.log(error);
-      }else{
-        console.log('Message sent: ' + info.response);
-      }
-    });
+    
 
   });
 
