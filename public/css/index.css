@@ -15,9 +15,10 @@ footer {
 
 .dashboardTitle {
 	color: #003300;
-	font-weight: normal;
+	font-weight: bold;
 	white-space: pre;
 	text-align: right;
+
 }
 
 .dashboardText {

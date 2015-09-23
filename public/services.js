@@ -1,54 +1,72 @@
 angular.module('CRC.services', []).
-factory('ergastAPIservice', function($http,$location,$window,$rootScope) {
+factory('check_user',function(){
+  return {};
+}).
+factory('sample', function(){
+  return {};
+}).
+factory('ergastAPIservice', function($http,$location,$window,$rootScope,$q) {
 
   var ergastAPI = {};
 
-  ergastAPI.sendLoginData = function(formData) {
-    $http.post('/login', formData).success(function (data) { 
-      if(data.auth){
-        $rootScope.auth = true;
-        $window.location.href = '/#/dashboard';
-      }
-      else
-      {
-        $rootScope.auth = false;
-      } 
+
+  ///////////////////////////Request/////////////////////////////
+
+  ergastAPI.updateRequest = function(formData){
+    $http.post('/updateRequest', formData).success(function(data){
+
     });
   }
 
-  ergastAPI.sendRegisteration = function(formData) {
-    $http.post('/register', formData).success(function (data) {
-      alert("User is successfully registered");   
-    });
 
-  }
 
-    ergastAPI.sendRequest = function(formData) {
+  ergastAPI.sendRequest = function(formData) {
     $http.post('/addRequest', formData).success(function (data) {
      alert(data);   
-    });
-
-  }
-
-  ergastAPI.postBlog = function(formData) {
-    $http.post('/postBlog', formData).success(function (data) {   
-      alert("Blog Posted");
-    });
+   });
 
   }
 
   ergastAPI.getRequest = function(id){
-     return $http({
-        method: 'GET',
-        url: '/getRequest'
-    });
+   return $http({
+    method: 'GET',
+    url: '/getRequest'
+  });
 
+ }
+
+ ergastAPI.getRequestName =function (){
+  return $http({
+    method: 'GET',
+    url: '/getRequestName'
+  });
+
+}
+
+var abc = null;
+ergastAPI.getRequestById =function (oid){
+  
+  var deferred = $q.defer();
+
+  $http.post('/getRequestById', oid).success(function (data) {   
+    abc= data;
+
+    deferred.resolve(abc);
+    console.log(abc);
+  });
+   // console.log(abc);
+    //return abc;
+    return deferred.promise;
   }
 
-  ergastAPI.getRequestName =function (){
-    return $http({
-        method: 'GET',
-        url: '/getRequestName'
+  ////////////////////////////////////////////////////////////////////
+
+
+  ////////////////////////User Registration/////////////////////////////
+
+  ergastAPI.sendRegisteration = function(formData) {
+    $http.post('/register', formData).success(function (data) {
+      alert("User is successfully registered");   
     });
 
   }
@@ -78,9 +96,12 @@ factory('ergastAPIservice', function($http,$location,$window,$rootScope) {
     });
   }
 
-  return ergastAPI;
+////////////////////////////////////////////////////////////////////////////
 
-  
+
+return ergastAPI;
+
+
 }).
 factory("authenticationSvc", function($http, $q, $window) {
   var userInfo;
@@ -90,7 +111,7 @@ factory("authenticationSvc", function($http, $q, $window) {
   function init() {
     if ($window.sessionStorage["userInfo"] !== "undefined") {
       userInfo = JSON.parse($window.sessionStorage["userInfo"]);
-     }
+    }
   }
 
   init();
@@ -102,6 +123,17 @@ factory("authenticationSvc", function($http, $q, $window) {
     $http.post("/getUser",dataJSON).success(function(data) {
       //console.log(data[0]);
       userInfo = data[0];
+      
+      if(!userInfo.active){
+        alert('User Disabled')
+      }
+      else if(userInfo){
+        $window.location.href = '/#/dashboard';
+      }
+      else
+      {
+        alert('username or password incorrect!');
+      }
       $window.sessionStorage["userInfo"] = JSON.stringify(data[0]);
       deferred.resolve(userInfo);
     }, function(error) {
@@ -111,7 +143,10 @@ factory("authenticationSvc", function($http, $q, $window) {
     return deferred.promise;
   }
 
-
+  function clearUser() {
+    userInfo = null;
+    $window.sessionStorage["userInfo"] = null;
+  }
 
 
   function getUserInfo() {
@@ -120,6 +155,7 @@ factory("authenticationSvc", function($http, $q, $window) {
 
   return {
     login: login,
-    getUserInfo: getUserInfo
+    getUserInfo: getUserInfo,
+    clearUser: clearUser
   };
 });

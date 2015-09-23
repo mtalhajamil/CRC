@@ -1,6 +1,6 @@
 <div class="container">
 
-    <!-------->
+    
     <div id="content">
         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
             <li class="active"><a href="status/#progress" data-toggle="tab">Open Requests</a></li>
@@ -21,7 +21,7 @@
                         <tr ng-repeat="users in usersList">
                             
                            
-                            <td><a href="/#/request?key={{users.key}}" >{{users.value}}</a>
+                            <td><a href="/#/request?key={{users.key}}" ng-click="set(users.key)" >{{users.value}}</a>
                            </tr>   
                     </tbody>
                 </table>

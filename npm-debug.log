@@ -1,0 +1,319 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files (x86)\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'fibers' ]
+2 info using npm@2.11.3
+3 info using node@v0.12.7
+4 verbose install initial load of D:\source2\package.json
+5 warn package.json login_system@1.0.0 No description
+6 warn package.json login_system@1.0.0 No repository field.
+7 warn package.json login_system@1.0.0 No README data
+8 verbose installManyTop reading scoped package data from D:\source2\node_modules\body-parser\package.json
+9 verbose installManyTop reading scoped package data from D:\source2\node_modules\cookie-parser\package.json
+10 verbose installManyTop reading scoped package data from D:\source2\node_modules\express\package.json
+11 verbose installManyTop reading scoped package data from D:\source2\node_modules\express-session\package.json
+12 verbose installManyTop reading scoped package data from D:\source2\node_modules\mongodb\package.json
+13 verbose installManyTop reading scoped package data from D:\source2\node_modules\monk\package.json
+14 verbose installManyTop reading scoped package data from D:\source2\node_modules\nodemailer\package.json
+15 verbose installManyTop reading scoped package data from D:\source2\node_modules\passport\package.json
+16 verbose installManyTop reading scoped package data from D:\source2\node_modules\passport-local\package.json
+17 info package.json monk@1.0.1 No license field.
+18 info package.json passport-local@1.0.0 No license field.
+19 verbose readDependencies loading dependencies from D:\source2\package.json
+20 silly cache add args [ 'fibers', null ]
+21 verbose cache add spec fibers
+22 silly cache add parsed spec { raw: 'fibers',
+22 silly cache add   scope: null,
+22 silly cache add   name: 'fibers',
+22 silly cache add   rawSpec: '',
+22 silly cache add   spec: '*',
+22 silly cache add   type: 'range' }
+23 silly addNamed fibers@*
+24 verbose addNamed "*" is a valid semver range for fibers
+25 silly addNameRange { name: 'fibers', range: '*', hasData: false }
+26 silly mapToRegistry name fibers
+27 silly mapToRegistry using default registry
+28 silly mapToRegistry registry https://registry.npmjs.org/
+29 silly mapToRegistry uri https://registry.npmjs.org/fibers
+30 verbose addNameRange registry:https://registry.npmjs.org/fibers not in flight; fetching
+31 verbose request uri https://registry.npmjs.org/fibers
+32 verbose request no auth needed
+33 info attempt registry request try #1 at 12:17:35 PM
+34 verbose request id 2629e4e1914c4809
+35 verbose etag "EVWXHE5K16HTS5BY9L958MZ0K"
+36 http request GET https://registry.npmjs.org/fibers
+37 http 304 https://registry.npmjs.org/fibers
+38 silly get cb [ 304,
+38 silly get   { date: 'Wed, 23 Sep 2015 07:17:36 GMT',
+38 silly get     via: '1.1 varnish',
+38 silly get     'cache-control': 'max-age=60',
+38 silly get     etag: '"EVWXHE5K16HTS5BY9L958MZ0K"',
+38 silly get     age: '12',
+38 silly get     connection: 'keep-alive',
+38 silly get     'x-served-by': 'cache-lhr6323-LHR',
+38 silly get     'x-cache': 'HIT',
+38 silly get     'x-cache-hits': '1',
+38 silly get     'x-timer': 'S1442992656.603854,VS0,VE1',
+38 silly get     vary: 'Accept' } ]
+39 verbose etag https://registry.npmjs.org/fibers from cache
+40 verbose get saving fibers to C:\Users\Intern\AppData\Roaming\npm-cache\registry.npmjs.org\fibers\.cache.json
+41 silly addNameRange number 2 { name: 'fibers', range: '*', hasData: true }
+42 silly addNameRange versions [ 'fibers',
+42 silly addNameRange   [ '0.1.0',
+42 silly addNameRange     '0.1.1',
+42 silly addNameRange     '0.1.2',
+42 silly addNameRange     '0.1.3',
+42 silly addNameRange     '0.1.4',
+42 silly addNameRange     '0.1.6',
+42 silly addNameRange     '0.1.7',
+42 silly addNameRange     '0.1.8',
+42 silly addNameRange     '0.2.0',
+42 silly addNameRange     '0.2.1',
+42 silly addNameRange     '0.2.2',
+42 silly addNameRange     '0.2.3',
+42 silly addNameRange     '0.2.4',
+42 silly addNameRange     '0.2.5',
+42 silly addNameRange     '0.2.6',
+42 silly addNameRange     '0.5.0',
+42 silly addNameRange     '0.6.0',
+42 silly addNameRange     '0.5.1',
+42 silly addNameRange     '0.6.1',
+42 silly addNameRange     '0.6.2',
+42 silly addNameRange     '0.6.3',
+42 silly addNameRange     '0.6.4',
+42 silly addNameRange     '0.6.5',
+42 silly addNameRange     '0.6.6',
+42 silly addNameRange     '0.6.7',
+42 silly addNameRange     '0.6.8',
+42 silly addNameRange     '0.6.9',
+42 silly addNameRange     '1.0.0',
+42 silly addNameRange     '1.0.1',
+42 silly addNameRange     '1.0.2',
+42 silly addNameRange     '1.0.4',
+42 silly addNameRange     '1.0.5',
+42 silly addNameRange     '1.0.6-b',
+42 silly addNameRange     '1.0.7' ] ]
+43 silly addNamed fibers@1.0.7
+44 verbose addNamed "1.0.7" is a plain semver version for fibers
+45 silly cache afterAdd fibers@1.0.7
+46 verbose afterAdd C:\Users\Intern\AppData\Roaming\npm-cache\fibers\1.0.7\package\package.json not in flight; writing
+47 verbose afterAdd C:\Users\Intern\AppData\Roaming\npm-cache\fibers\1.0.7\package\package.json written
+48 silly install resolved [ { name: 'fibers',
+48 silly install resolved     version: '1.0.7',
+48 silly install resolved     description: 'Cooperative multi-tasking for Javascript',
+48 silly install resolved     keywords:
+48 silly install resolved      [ 'fiber',
+48 silly install resolved        'fibers',
+48 silly install resolved        'coroutine',
+48 silly install resolved        'thread',
+48 silly install resolved        'async',
+48 silly install resolved        'parallel',
+48 silly install resolved        'worker',
+48 silly install resolved        'future',
+48 silly install resolved        'promise' ],
+48 silly install resolved     homepage: 'https://github.com/laverdet/node-fibers',
+48 silly install resolved     author:
+48 silly install resolved      { name: 'Marcel Laverdet',
+48 silly install resolved        email: 'marcel@laverdet.com',
+48 silly install resolved        url: 'https://github.com/laverdet/' },
+48 silly install resolved     main: 'fibers',
+48 silly install resolved     scripts:
+48 silly install resolved      { install: 'node build.js || nodejs build.js',
+48 silly install resolved        test: 'node test.js || nodejs test.js' },
+48 silly install resolved     repository:
+48 silly install resolved      { type: 'git',
+48 silly install resolved        url: 'git://github.com/laverdet/node-fibers.git' },
+48 silly install resolved     license: 'MIT',
+48 silly install resolved     engines: { node: '>=0.5.2' },
+48 silly install resolved     gitHead: '8c591087fcc5768d209ff8a30979c9257503d13f',
+48 silly install resolved     bugs: { url: 'https://github.com/laverdet/node-fibers/issues' },
+48 silly install resolved     _id: 'fibers@1.0.7',
+48 silly install resolved     _shasum: '7dabae2b238188caa3748a8968c3c9df91752982',
+48 silly install resolved     _from: 'fibers@*',
+48 silly install resolved     _npmVersion: '2.11.3',
+48 silly install resolved     _nodeVersion: '2.3.2',
+48 silly install resolved     _npmUser: { name: 'laverdet', email: 'marcel.npm@laverdet.com' },
+48 silly install resolved     maintainers: [ [Object] ],
+48 silly install resolved     dist:
+48 silly install resolved      { shasum: '7dabae2b238188caa3748a8968c3c9df91752982',
+48 silly install resolved        tarball: 'http://registry.npmjs.org/fibers/-/fibers-1.0.7.tgz' },
+48 silly install resolved     directories: {},
+48 silly install resolved     _resolved: 'https://registry.npmjs.org/fibers/-/fibers-1.0.7.tgz',
+48 silly install resolved     readme: 'ERROR: No README data found!' } ]
+49 info install fibers@1.0.7 into D:\source2
+50 info installOne fibers@1.0.7
+51 verbose installOne of fibers to D:\source2 not in flight; installing
+52 verbose lock using C:\Users\Intern\AppData\Roaming\npm-cache\_locks\fibers-3fb4099bbf581d44.lock for D:\source2\node_modules\fibers
+53 silly install write writing fibers 1.0.7 to D:\source2\node_modules\fibers
+54 verbose unbuild node_modules\fibers
+55 silly gentlyRm D:\source2\node_modules\fibers is being purged from base D:\source2
+56 verbose gentlyRm don't care about contents; nuking D:\source2\node_modules\fibers
+57 verbose tar unpack C:\Users\Intern\AppData\Roaming\npm-cache\fibers\1.0.7\package.tgz
+58 verbose tar unpacking to D:\source2\node_modules\fibers
+59 silly gentlyRm D:\source2\node_modules\fibers is being purged
+60 verbose gentlyRm don't care about contents; nuking D:\source2\node_modules\fibers
+61 silly gunzTarPerm modes [ '777', '666' ]
+62 silly gunzTarPerm extractEntry package.json
+63 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+64 silly gunzTarPerm extractEntry .npmignore
+65 silly gunzTarPerm modified mode [ '.npmignore', 420, 438 ]
+66 silly gunzTarPerm extractEntry README.md
+67 silly gunzTarPerm modified mode [ 'README.md', 420, 438 ]
+68 silly gunzTarPerm extractEntry LICENSE
+69 silly gunzTarPerm modified mode [ 'LICENSE', 420, 438 ]
+70 silly gunzTarPerm extractEntry quick-test.js
+71 silly gunzTarPerm modified mode [ 'quick-test.js', 420, 438 ]
+72 silly gunzTarPerm extractEntry future.js
+73 silly gunzTarPerm modified mode [ 'future.js', 420, 438 ]
+74 silly gunzTarPerm extractEntry build.js
+75 silly gunzTarPerm modified mode [ 'build.js', 493, 511 ]
+76 silly gunzTarPerm extractEntry test.js
+77 silly gunzTarPerm modified mode [ 'test.js', 493, 511 ]
+78 silly gunzTarPerm extractEntry fibers.js
+79 silly gunzTarPerm modified mode [ 'fibers.js', 420, 438 ]
+80 silly gunzTarPerm extractEntry binding.gyp
+81 silly gunzTarPerm modified mode [ 'binding.gyp', 420, 438 ]
+82 silly gunzTarPerm extractEntry bin/.npmignore
+83 silly gunzTarPerm modified mode [ 'bin/.npmignore', 420, 438 ]
+84 silly gunzTarPerm extractEntry bin/win32-x64-v8-4.2/fibers.node
+85 silly gunzTarPerm modified mode [ 'bin/win32-x64-v8-4.2/fibers.node', 420, 438 ]
+86 silly gunzTarPerm extractEntry bin/darwin-ia32-v8-3.28/fibers.node
+87 silly gunzTarPerm modified mode [ 'bin/darwin-ia32-v8-3.28/fibers.node', 493, 511 ]
+88 silly gunzTarPerm extractEntry bin/darwin-ia32-v8-4.2/fibers.node
+89 silly gunzTarPerm modified mode [ 'bin/darwin-ia32-v8-4.2/fibers.node', 493, 511 ]
+90 silly gunzTarPerm extractEntry bin/darwin-x64-v8-3.14/fibers.node
+91 silly gunzTarPerm modified mode [ 'bin/darwin-x64-v8-3.14/fibers.node', 493, 511 ]
+92 silly gunzTarPerm extractEntry bin/darwin-x64-v8-3.28/fibers.node
+93 silly gunzTarPerm modified mode [ 'bin/darwin-x64-v8-3.28/fibers.node', 493, 511 ]
+94 silly gunzTarPerm extractEntry bin/darwin-x64-v8-4.2/fibers.node
+95 silly gunzTarPerm modified mode [ 'bin/darwin-x64-v8-4.2/fibers.node', 493, 511 ]
+96 silly gunzTarPerm extractEntry bin/linux-ia32-v8-3.14/fibers.node
+97 silly gunzTarPerm modified mode [ 'bin/linux-ia32-v8-3.14/fibers.node', 493, 511 ]
+98 silly gunzTarPerm extractEntry bin/linux-ia32-v8-3.28/fibers.node
+99 silly gunzTarPerm modified mode [ 'bin/linux-ia32-v8-3.28/fibers.node', 493, 511 ]
+100 silly gunzTarPerm extractEntry bin/linux-ia32-v8-4.2/fibers.node
+101 silly gunzTarPerm modified mode [ 'bin/linux-ia32-v8-4.2/fibers.node', 493, 511 ]
+102 silly gunzTarPerm extractEntry bin/darwin-ia32-v8-3.14/fibers.node
+103 silly gunzTarPerm modified mode [ 'bin/darwin-ia32-v8-3.14/fibers.node', 493, 511 ]
+104 silly gunzTarPerm extractEntry bin/linux-x64-v8-3.28/fibers.node
+105 silly gunzTarPerm modified mode [ 'bin/linux-x64-v8-3.28/fibers.node', 493, 511 ]
+106 silly gunzTarPerm extractEntry bin/linux-x64-v8-4.2/fibers.node
+107 silly gunzTarPerm modified mode [ 'bin/linux-x64-v8-4.2/fibers.node', 493, 511 ]
+108 silly gunzTarPerm extractEntry bin/repl
+109 silly gunzTarPerm modified mode [ 'bin/repl', 493, 511 ]
+110 silly gunzTarPerm extractEntry bin/win32-ia32-v8-3.14/fibers.node
+111 silly gunzTarPerm modified mode [ 'bin/win32-ia32-v8-3.14/fibers.node', 420, 438 ]
+112 silly gunzTarPerm extractEntry bin/win32-ia32-v8-3.28/fibers.node
+113 silly gunzTarPerm modified mode [ 'bin/win32-ia32-v8-3.28/fibers.node', 420, 438 ]
+114 silly gunzTarPerm extractEntry bin/win32-ia32-v8-4.2/fibers.node
+115 silly gunzTarPerm modified mode [ 'bin/win32-ia32-v8-4.2/fibers.node', 420, 438 ]
+116 silly gunzTarPerm extractEntry bin/win32-x64-v8-3.14/fibers.node
+117 silly gunzTarPerm modified mode [ 'bin/win32-x64-v8-3.14/fibers.node', 420, 438 ]
+118 silly gunzTarPerm extractEntry bin/win32-x64-v8-3.28/fibers.node
+119 silly gunzTarPerm modified mode [ 'bin/win32-x64-v8-3.28/fibers.node', 420, 438 ]
+120 silly gunzTarPerm extractEntry bin/linux-x64-v8-3.14/fibers.node
+121 silly gunzTarPerm modified mode [ 'bin/linux-x64-v8-3.14/fibers.node', 493, 511 ]
+122 silly gunzTarPerm extractEntry src/coroutine.cc
+123 silly gunzTarPerm modified mode [ 'src/coroutine.cc', 420, 438 ]
+124 silly gunzTarPerm extractEntry src/coroutine.h
+125 silly gunzTarPerm modified mode [ 'src/coroutine.h', 420, 438 ]
+126 silly gunzTarPerm extractEntry src/fibers.cc
+127 silly gunzTarPerm modified mode [ 'src/fibers.cc', 420, 438 ]
+128 silly gunzTarPerm extractEntry src/libcoro/README
+129 silly gunzTarPerm modified mode [ 'src/libcoro/README', 420, 438 ]
+130 silly gunzTarPerm extractEntry src/libcoro/LICENSE
+131 silly gunzTarPerm modified mode [ 'src/libcoro/LICENSE', 420, 438 ]
+132 silly gunzTarPerm extractEntry src/libcoro/conftest.c
+133 silly gunzTarPerm modified mode [ 'src/libcoro/conftest.c', 420, 438 ]
+134 silly gunzTarPerm extractEntry src/libcoro/coro.c
+135 silly gunzTarPerm modified mode [ 'src/libcoro/coro.c', 420, 438 ]
+136 silly gunzTarPerm extractEntry src/libcoro/coro.h
+137 silly gunzTarPerm modified mode [ 'src/libcoro/coro.h', 420, 438 ]
+138 silly gunzTarPerm extractEntry test/already-running.js
+139 silly gunzTarPerm modified mode [ 'test/already-running.js', 420, 438 ]
+140 silly gunzTarPerm extractEntry test/exit.js
+141 silly gunzTarPerm modified mode [ 'test/exit.js', 420, 438 ]
+142 silly gunzTarPerm extractEntry test/fibonacci.js
+143 silly gunzTarPerm modified mode [ 'test/fibonacci.js', 420, 438 ]
+144 silly gunzTarPerm extractEntry test/finish-multiple.js
+145 silly gunzTarPerm modified mode [ 'test/finish-multiple.js', 420, 438 ]
+146 silly gunzTarPerm extractEntry test/future-exception.js
+147 silly gunzTarPerm modified mode [ 'test/future-exception.js', 420, 438 ]
+148 silly gunzTarPerm extractEntry test/exec.js
+149 silly gunzTarPerm modified mode [ 'test/exec.js', 420, 438 ]
+150 silly gunzTarPerm extractEntry test/illegal-yield.js
+151 silly gunzTarPerm modified mode [ 'test/illegal-yield.js', 420, 438 ]
+152 silly gunzTarPerm extractEntry test/pool.js
+153 silly gunzTarPerm modified mode [ 'test/pool.js', 420, 438 ]
+154 silly gunzTarPerm extractEntry test/process-title.js
+155 silly gunzTarPerm modified mode [ 'test/process-title.js', 420, 438 ]
+156 silly gunzTarPerm extractEntry test/stack-overflow.js
+157 silly gunzTarPerm modified mode [ 'test/stack-overflow.js', 420, 438 ]
+158 silly gunzTarPerm extractEntry test/stack-overflow2.js
+159 silly gunzTarPerm modified mode [ 'test/stack-overflow2.js', 493, 511 ]
+160 silly gunzTarPerm extractEntry test/current.js
+161 silly gunzTarPerm modified mode [ 'test/current.js', 420, 438 ]
+162 silly gunzTarPerm extractEntry test/stack-overflow3.js
+163 silly gunzTarPerm modified mode [ 'test/stack-overflow3.js', 420, 438 ]
+164 silly gunzTarPerm extractEntry test/child-process.js
+165 silly gunzTarPerm modified mode [ 'test/child-process.js', 420, 438 ]
+166 silly gunzTarPerm extractEntry test/started.js
+167 silly gunzTarPerm modified mode [ 'test/started.js', 420, 438 ]
+168 silly gunzTarPerm extractEntry test/bad-context.js
+169 silly gunzTarPerm modified mode [ 'test/bad-context.js', 420, 438 ]
+170 silly gunzTarPerm extractEntry test/unwind.js
+171 silly gunzTarPerm modified mode [ 'test/unwind.js', 420, 438 ]
+172 silly gunzTarPerm extractEntry test/future.js
+173 silly gunzTarPerm modified mode [ 'test/future.js', 420, 438 ]
+174 verbose write writing to D:\source2\node_modules\fibers\package.json
+175 info preinstall fibers@1.0.7
+176 verbose readDependencies loading dependencies from D:\source2\node_modules\fibers\package.json
+177 verbose readDependencies loading dependencies from D:\source2\node_modules\fibers\package.json
+178 silly install resolved []
+179 verbose about to build D:\source2\node_modules\fibers
+180 info build D:\source2\node_modules\fibers
+181 info linkStuff fibers@1.0.7
+182 silly linkStuff fibers@1.0.7 has D:\source2\node_modules as its parent node_modules
+183 verbose linkBins fibers@1.0.7
+184 verbose linkMans fibers@1.0.7
+185 verbose rebuildBundles fibers@1.0.7
+186 info install fibers@1.0.7
+187 verbose unsafe-perm in lifecycle true
+188 info fibers@1.0.7 Failed to exec install script
+189 verbose unlock done using C:\Users\Intern\AppData\Roaming\npm-cache\_locks\fibers-3fb4099bbf581d44.lock for D:\source2\node_modules\fibers
+190 verbose stack Error: fibers@1.0.7 install: `node build.js || nodejs build.js`
+190 verbose stack Exit status 1
+190 verbose stack     at EventEmitter.<anonymous> (C:\Program Files (x86)\nodejs\node_modules\npm\lib\utils\lifecycle.js:213:16)
+190 verbose stack     at EventEmitter.emit (events.js:110:17)
+190 verbose stack     at ChildProcess.<anonymous> (C:\Program Files (x86)\nodejs\node_modules\npm\lib\utils\spawn.js:24:14)
+190 verbose stack     at ChildProcess.emit (events.js:110:17)
+190 verbose stack     at maybeClose (child_process.js:1015:16)
+190 verbose stack     at Process.ChildProcess._handle.onexit (child_process.js:1087:5)
+191 verbose pkgid fibers@1.0.7
+192 verbose cwd D:\source2
+193 error Windows_NT 6.1.7601
+194 error argv "C:\\Program Files (x86)\\nodejs\\node.exe" "C:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "fibers"
+195 error node v0.12.7
+196 error npm  v2.11.3
+197 error code ELIFECYCLE
+198 error fibers@1.0.7 install: `node build.js || nodejs build.js`
+198 error Exit status 1
+199 error Failed at the fibers@1.0.7 install script 'node build.js || nodejs build.js'.
+199 error This is most likely a problem with the fibers package,
+199 error not with npm itself.
+199 error Tell the author that this fails on your system:
+199 error     node build.js || nodejs build.js
+199 error You can get their info via:
+199 error     npm owner ls fibers
+199 error There is likely additional logging output above.
+200 verbose exit [ 1, true ]
+201 verbose unbuild node_modules\fibers
+202 info preuninstall fibers@1.0.7
+203 info uninstall fibers@1.0.7
+204 verbose unbuild rmStuff fibers@1.0.7 from D:\source2\node_modules
+205 info postuninstall fibers@1.0.7
+206 silly gentlyRm D:\source2\node_modules\fibers is being purged from base D:\source2
+207 verbose gentlyRm don't care about contents; nuking D:\source2\node_modules\fibers
+208 silly vacuum-fs purging D:\source2\node_modules\fibers
+209 silly vacuum-fs quitting because other entries in D:\source2\node_modules

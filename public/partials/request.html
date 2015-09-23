@@ -1,0 +1,169 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<div class="panel panel-default">
+				<div class="panel-heading">SAP Development and Change Request Form</div>
+				<div class="panel-body">
+
+
+					<form class="form-horizontal" role="form" >
+
+
+						<div class="form-group">
+							<label class="col-md-2 control-label">Date</label>
+							<div class="col-md-10">
+								<input type="text" id="date1" class="form-control" ng-model="mesg.request.timeStamp" name="timeStamp" disabled>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-2 control-label">Description</label>
+							<div class="col-md-10">
+								<input type="text" class="form-control" ng-model="mesg.request.description" name="description">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-2 control-label">Name</label>
+							<div class="col-md-10">
+								<input type="text" class="form-control" ng-model="mesg.request.username" name="username" disabled>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-2 control-label">Designation</label>
+							<div class="col-md-10">
+								<input type="text" class="form-control" ng-model="mesg.request.designation" name="designation">
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-2 control-label">Division</label>
+							<div class="col-md-10">
+								<input type="text" class="form-control" ng-model="mesg.request.division" name="division">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-2 control-label">Function</label>
+							<div class="col-md-10">
+								<input type="text" class="form-control" ng-model="mesg.request.func" name="function">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-2 control-label">Nature Of Request</label>
+							<div class="col-md-10">
+								<input type="text" class="form-control" ng-model="mesg.request.natureOfRequest" name="natureOfRequest">
+							</div>
+						</div>
+
+						<h3>Detailed Specifications</h3>
+
+						<div class="form-group">
+							<label class="col-md-3 control-label">Existing Process?</label>
+							<div class="col-md-9">
+								<textarea rows="3" class="form-control" ng-model="mesg.request.existing_process" name="existing_process"></textarea>
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<label class="col-md-3 control-label">Justification of this Development or change?</label>
+							<div class="col-md-9">
+								<textarea rows="3" class="form-control" ng-model="mesg.request.justification" name="justification"></textarea>
+							</div>
+						</div>
+
+
+
+						<div class="form-group">
+							<label class="col-md-3 control-label">Why is SAP Standard being changed? (if applicable)</label>
+							<div class="col-md-9">
+								<textarea rows="3" class="form-control" ng-model="mesg.request.sap_standard" name="sap_standard"></textarea>
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<label class="col-md-3 control-label">Business Impact this development or change will make?</label>
+							<div class="col-md-9">
+								<textarea rows="3" class="form-control" ng-model="mesg.request.business_impact" name="business_impact"></textarea>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-3 control-label">Steps to generate the error/bug/dump ? (if applicable)</label>
+							<div class="col-md-9">
+								<textarea rows="3" class="form-control" ng-model="mesg.request.step_generate" name="step_generate"></textarea>
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<label class="col-md-3 control-label">Expected Results from development or change?</label>
+							<div class="col-md-9">
+								<textarea rows="3" class="form-control" ng-model="mesg.request.expected_change" name="expected_change"></textarea>
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<label class="col-md-3 control-label">Mandotary Report Options</label>
+							<div class="col-md-9">
+								<textarea rows="3" class="form-control" ng-model="mesg.request.mandatory_option" name="mandatory_option"></textarea>
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<label class="col-md-3 control-label">Assumptions/Notes</label>
+							<div class="col-md-9">
+								<textarea rows="3" class="form-control" ng-model="mesg.request.assumption_notes" name="assumption_notes"></textarea>
+							</div>
+						</div>
+
+
+						<div class="form-group" ng-show="IsVisible">
+							<div class="col-md-6 col-md-offset-4">
+								<button type="submit" ng-click="register()" class="btn btn-success">Submit Request</button>
+							</div>
+						</div>
+
+						<div class="form-group" ng-show="IsVisible1">
+							<div class="col-md-2 col-md-offset-3">
+								<button type="submit" ng-click="accept()" class="btn btn-success">Accept</button>
+							</div>
+							<div class="col-md-2">
+							<button class="btn btn-success" data-toggle="modal" data-target="#rejectModal">Reject</button>	
+							</div>		
+						</div>
+
+
+						<div id="rejectModal" class="modal fade" role="dialog">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-body">
+
+											<div class="form-group">
+												<label class="col-md-3 control-label">Comments</label>
+												<div class="col-md-9">
+													<textarea rows="3" class="form-control" ng-model="mesg.request.comments" name="business_impact"></textarea>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="col-md-6 col-md-offset-3">
+													<button type="submit" ng-click="reject()" class="btn btn-success">Reject</button>
+												</div>
+											</div>	
+									</div>
+								</div>
+							</div>	
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

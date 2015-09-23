@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var monk = require('monk');
+
 //var flash    = require('connect-flash');
 
 var db = monk('localhost:27017/CRC');
@@ -168,10 +169,22 @@ app.post("/getUser", function(req,res,next){
 app.get("/getRequestName",function(req,res,next){
 
   var collection = db.get('cycle');
-  collection.find({},{sort: {'description':1}, fields: { 'assumption_notes': 0}},function(e,docs){
+  //collection.find({},{sort: {'request':1}, fields: { 'assumption_notes': 0}},function(e,docs){
+    collection.find({},{sort: {'request':1}},function(e,docs){
+    //console.log(docs);
     res.send(docs);
   });
 
+
+  });
+
+app.post("/getRequestById", function(req,res,next){
+  var collection = db.get('cycle');
+
+  collection.findById(req.body.id, function(err,docs){
+    console.log(docs);
+    res.send(docs);
+  });
 
 });
 
@@ -186,68 +199,97 @@ app.post("/getRequest", function(req,res,next){
 });
 
 
+app.post('/updateRequest', function(req,res,next){
+  var collection = db.get('cycle');
+  collection.update(
+    {_id: req.body._id},req.body , function (err, doc) {
+      if (err) {
+
+        res.send(err);
+      }
+      else {
+        res.send("Rejection has been made");
+      }
+    });
+
+});
+
 app.post('/addRequest', function(req, res){
-
-
-
-
 
   var data = {"request": req.body};
   data.status = "initial";
-  data.approvedBy = "none";
+  data.approved_by = "none";
 
   var collection = db.get('cycle');
-  //console.log(req.body.username);
-    // Submit to the DB
-    collection.insert(
-      data, function (err, doc) {
+  collection.insert(
+    data, function (err, doc) {
+      if (err) {
+        res.send("There was a problem adding the information to the database.");
+      }
+      else {
+            // res.send("Record Inserted"); 
+          }
+        });
+
+
+      //var deferred = Q.defer();
+
+
+      var collection2 = db.get('userCollection');
+      collection2.find({'role': "aManager", 'modules': [req.body.func]},{},function (err, doc) {
         if (err) {
             // If it failed, return error
             res.send("There was a problem adding the information to the database.");
             //console.log("faliure");
           }
           else {
-            res.send("Record Inserted"); 
-          }
-        });
+           //console.log(deferred.promise);
+           while(1){
 
-    var collection2 = db.get('userCollection');
-    collection2.find({'role': "aManager", 'modules': [req.body.func]},{},function (err, doc) {
-      if (err) {
-            // If it failed, return error
-            res.send("There was a problem adding the information to the database.");
-            //console.log("faliure");
-          }
-          else {
-           console.log(docs);
-
-           var mailOptions = {
-              from: 'IS chain management', // sender address
-              to: docs.email, // list of receivers
-              subject: 'A Change in Module has been requested', // Subject line
-              text: 'A change is requested in the T-3243 by xyz. see the following link', // plaintext body
-              html: '<b>A change is requested in the T-3243 by xyz. see the following link ✔</b>' // html body
-            };
-
-            transporter.sendMail(mailOptions, function(error, info){
-              if(error){
-                res.send("Email Not Sent");
-              }else{
-                res.send("Email Sent To Application Manager" + docs.email);
+            if(doc){
+                  //console.log(doc[0].email);
+                  emailCall(doc[0].email,req.body,res);
+                  break;
+                }
               }
-            });
-          }
-        });
+              
+            }
+          });
+
+     // console.log(deferred.promise);
+    // promise.then(function(result){
+    //   console.log(result);
+    // },
+    // function(error){
+    // });
+
 
 });
 
 
+function emailCall(email,request,res){
 
+  //console.log(email);
 
-    // send mail with defined transport object
-    
+  var mailOptions = {
+              from: 'IS chain management', // sender address
+              to: email, // list of receivers
+              subject: 'A Change in Module has been requested', // Subject line
+              text: 'Request Nature:,Check link:', // plaintext body
+              html: '<b>Request Nature:'+ request.natureOfRequest +'</b><br />Go to: <a href="#">link</a>' // html body
+            };
 
-  });
+            transporter.sendMail(mailOptions, function(error, info){
+              if(error){
+                console.log(error);
+                //res.send("Email Not Sent");
+              }else{
+                //console.log("done email");
+                res.send("Request Generated & Email Sent"); 
+                //res.send("Email Sent To Application Manager" + docs.email);
+              }
+            });
+          }
 
 
 /////////////////////////////////////////////////////////////////////
