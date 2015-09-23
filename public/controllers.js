@@ -1,10 +1,12 @@
 angular.module('CRC.controllers', ['app.directives']).
-controller('indexController', function($scope,$location,authenticationSvc) {
+controller('indexController', function($scope,$location,authenticationSvc,loginDashboard) {
   $scope.logout = function() {
     authenticationSvc.clearUser();
   }
-  
-  
+
+  $scope.loginDashboard = loginDashboard;
+     $scope.loginDashboard.visible = true;
+
 }).
 controller('requestController',function($scope,ergastAPIservice,authenticationSvc,sample, check_user){
 
@@ -53,7 +55,7 @@ controller('requestController',function($scope,ergastAPIservice,authenticationSv
    }
 
 }).
-controller('loginController', function($scope,authenticationSvc) {
+controller('loginController', function($scope,authenticationSvc,loginDashboard) {
 
     // $scope.login = function() {
     //     ergastAPIservice.sendLoginData($scope.formData);
@@ -64,7 +66,8 @@ controller('loginController', function($scope,authenticationSvc) {
       //console.log(response);
     }
 
-
+    $scope.loginDashboard = loginDashboard;
+    $scope.loginDashboard.visible = false;
 
   }).
 controller('registerController', function($scope,ergastAPIservice) {
@@ -115,10 +118,12 @@ $scope.register = function(){
 }
 
 }).
-controller('dashboardController', function($scope,authenticationSvc) {
+controller('dashboardController', function($scope,authenticationSvc,loginDashboard) {
   $scope.userInfo = authenticationSvc.getUserInfo();
   //console.log($scope.userInfo);
 
+    $scope.loginDashboard = loginDashboard;
+    $scope.loginDashboard.visible = true;
 }).
 controller('userControlController', function($scope,ergastAPIservice) {
 

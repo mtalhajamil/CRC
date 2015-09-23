@@ -5,6 +5,9 @@ factory('check_user',function(){
 factory('sample', function(){
   return {};
 }).
+factory('loginDashboard', function(){
+  return {};
+}).
 factory('ergastAPIservice', function($http,$location,$window,$rootScope,$q) {
 
   var ergastAPI = {};
