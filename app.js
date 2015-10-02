@@ -65,23 +65,23 @@ app.post('/register', function(req, res){
 
   });
 
-app.post('/postBlog', function(req, res){
+// app.post('/postBlog', function(req, res){
 
-  var collection = db.get('blogCollection');
-  var formObject = {author:req.user.username,title:req.body.title,blog:req.body.blog};
-    // Submit to the DB
-    collection.insert(
-      formObject, function (err, doc) {
-        if (err) {
-            // If it failed, return error
-            res.send("There was a problem adding the information to the database.");
-          }
-          else {
-            res.sendStatus(200);
-          }
-        });
+//   var collection = db.get('blogCollection');
+//   var formObject = {author:req.user.username,title:req.body.title,blog:req.body.blog};
+//     // Submit to the DB
+//     collection.insert(
+//       formObject, function (err, doc) {
+//         if (err) {
+//             // If it failed, return error
+//             res.send("There was a problem adding the information to the database.");
+//           }
+//           else {
+//             res.sendStatus(200);
+//           }
+//         });
 
-  });
+//   });
 
 
 app.post('/updateUser', function(req, res){
@@ -236,14 +236,15 @@ app.post('/addRequest', function(req, res){
 
 
       var collection2 = db.get('userCollection');
-      collection2.find({'role': "aManager", 'modules': [req.body.func]},{},function (err, doc) {
+      collection2.find({'role': "aManager", 'modules': { $in:[req.body.func]}},{},function (err, doc) {
         if (err) {
             // If it failed, return error
             res.send("There was a problem adding the information to the database.");
             //console.log("faliure");
           }
           else {
-           //console.log(deferred.promise);
+
+            console.log(doc);
            while(1){
 
             if(doc){
@@ -252,9 +253,9 @@ app.post('/addRequest', function(req, res){
                   break;
                 }
               }
-              
-            }
-          });
+           
+         }
+       });
 
      // console.log(deferred.promise);
     // promise.then(function(result){

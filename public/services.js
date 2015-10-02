@@ -48,7 +48,7 @@ factory('ergastAPIservice', function($http,$location,$window,$rootScope,$q) {
 
 var abc = null;
 ergastAPI.getRequestById =function (oid){
-  
+
   var deferred = $q.defer();
 
   $http.post('/getRequestById', oid).success(function (data) {   
@@ -127,11 +127,13 @@ factory("authenticationSvc", function($http, $q, $window) {
       //console.log(data[0]);
       userInfo = data[0];
       
-      if(!userInfo.active){
-        alert('User Disabled')
-      }
-      else if(userInfo){
-        $window.location.href = '/#/dashboard';
+      
+      if(userInfo){
+        if(!userInfo.active){
+          alert('User Disabled')
+        }else{
+          $window.location.href = '/#/dashboard';
+        }
       }
       else
       {
