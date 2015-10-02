@@ -54,6 +54,7 @@ angular
 	when("/compose", {templateUrl: "partials/compose.html", controller: "composeController", resolve: composeResolve}).
 	when("/userControl", {templateUrl: "partials/userControl.html", controller: "userControlController"}).
 	when("/request",{templateUrl:"partials/request.html",controller: "requestController"}).
+	when("/request/:key",{templateUrl:"partials/request.html",controller: "requestController"}).
 	when("/status", {templateUrl: "partials/status.html", controller: "statusController"}).
 	otherwise({redirectTo: '/dashboard'});
 }]);

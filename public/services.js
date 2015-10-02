@@ -46,6 +46,26 @@ factory('ergastAPIservice', function($http,$location,$window,$rootScope,$q) {
 
 }
 
+ergastAPI.getCyclesForPowerUser = function(formData) {
+    return $http.post('/getCyclesForPowerUser', formData).success(function (data) {   
+   });
+
+  }
+
+ergastAPI.getCyclesForApplicationManager = function(formData) {
+    return $http.post('/getCyclesForApplicationManager', formData).success(function (data) {   
+    alert(data);
+   });
+
+  }
+
+ergastAPI.getCyclesForApplicationOwner = function(formData) {
+    return $http.post('/getCyclesForApplicationOwner', formData).success(function (data) {   
+    alert(data);
+   });
+
+  }
+
 var abc = null;
 ergastAPI.getRequestById =function (oid){
 
@@ -55,10 +75,9 @@ ergastAPI.getRequestById =function (oid){
     abc= data;
 
     deferred.resolve(abc);
-    console.log(abc);
+    
   });
-   // console.log(abc);
-    //return abc;
+  
     return deferred.promise;
   }
 
@@ -122,9 +141,7 @@ factory("authenticationSvc", function($http, $q, $window) {
 
   function login(dataJSON) {
     var deferred = $q.defer();
-    //console.log(dataJSON);
     $http.post("/getUser",dataJSON).success(function(data) {
-      //console.log(data[0]);
       userInfo = data[0];
       
       

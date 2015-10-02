@@ -169,20 +169,56 @@ app.post("/getUser", function(req,res,next){
 app.get("/getRequestName",function(req,res,next){
 
   var collection = db.get('cycle');
-  //collection.find({},{sort: {'request':1}, fields: { 'assumption_notes': 0}},function(e,docs){
-    collection.find({},{sort: {'request':1}},function(e,docs){
-    //console.log(docs);
+  collection.find({},{sort: {'request':1}},function(e,docs){
     res.send(docs);
   });
 
 
+});
+
+app.post("/getCyclesForPowerUser",function(req,res,next){
+
+  var collection = db.get('cycle');
+  collection.find({"request.username":req.body.username},{},function(err,docs){
+    if (err) {
+      res.send(err);
+    }
+    else {
+      res.send(docs);
+    }
   });
+});
+
+app.post("/getCyclesForApplicationManager",function(req,res,next){
+
+  var collection = db.get('cycle');
+  collection.find({"request.modules":{$in:req.body.modules}},{},function(err,docs){
+    if (err) {
+      res.send(err);
+    }
+    else {
+      res.send(docs);
+    }
+  });
+});
+
+app.post("/getCyclesForApplicationOwner",function(req,res,next){
+
+  var collection = db.get('cycle');
+  collection.find({"request.username":req.body.username},{},function(err,docs){
+    if (err) {
+      res.send(err);
+    }
+    else {
+      res.send(docs);
+    }
+  });
+});
 
 app.post("/getRequestById", function(req,res,next){
   var collection = db.get('cycle');
 
   collection.findById(req.body.id, function(err,docs){
-    console.log(docs);
     res.send(docs);
   });
 
@@ -243,8 +279,6 @@ app.post('/addRequest', function(req, res){
             //console.log("faliure");
           }
           else {
-
-            console.log(doc);
            while(1){
 
             if(doc){
@@ -253,9 +287,9 @@ app.post('/addRequest', function(req, res){
                   break;
                 }
               }
-           
-         }
-       });
+
+            }
+          });
 
      // console.log(deferred.promise);
     // promise.then(function(result){

@@ -1,6 +1,6 @@
 <div class="container">
 
-    
+
     <div id="content">
         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
             <li class="active"><a href="status/#progress" data-toggle="tab">Open Requests</a></li>
@@ -8,34 +8,30 @@
         </ul>
         <div id="my-tab-content" class="tab-content">
             <div class="tab-pane active" id="progress">
-                    <div class="panel panel-default">
-            <div class="panel-heading">Requests</div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Requests</div>
 
 
 
-            <div class="table-responsive">
-                <table class="table">
-                 
-                    <tbody>
+                    <div class="table-responsive">
+                        <table class="table">
 
-                        <tr ng-repeat="users in usersList">
-                            
-                           
-                            <td><a href="/#/request?key={{users.key}}" ng-click="set(users.key)" >{{users.value}}</a>
-                           </tr>   
-                    </tbody>
-                </table>
-                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                            <tbody>
+                                <tr ng-repeat="cycle in cycles">
+                                    <td><a href="/#/request/{{cycle._id}}" ng-click="set()" >{{cycle.request.description}}</a>
+                                    </tr>   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="completed">
+                    <h1>Orange</h1>
+                    <p>orange orange orange orange orange</p>
+                </div>
+
+
             </div>
         </div>
-            </div>
-            <div class="tab-pane" id="completed">
-                <h1>Orange</h1>
-                <p>orange orange orange orange orange</p>
-            </div>
-            
-            
-        </div>
-    </div>
 
 </div> <!-- container -->
