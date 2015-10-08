@@ -5,33 +5,58 @@
         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
             <li class="active"><a href="status/#progress" data-toggle="tab">Open Requests</a></li>
             <li><a href="status/#completed" data-toggle="tab">Completed Requests</a></li>
+            <li><a href="status/#rejected" data-toggle="tab">Rejected Requests</a></li>
         </ul>
         <div id="my-tab-content" class="tab-content">
             <div class="tab-pane active" id="progress">
                 <div class="panel panel-default">
                     <div class="panel-heading">Requests</div>
-
-
-
                     <div class="table-responsive">
                         <table class="table">
-
                             <tbody>
-                                <tr ng-repeat="cycle in cycles">
-                                    <td><a href="/#/request/{{cycle._id}}" ng-click="set()" >{{cycle.request.description}}</a>
-                                    </tr>   
+                                <tr ng-repeat="cycle in cycles" class="{{cycle.class}}" ng-show="cycle.status == 'initial' || cycle.status == 'dev'">
+                                    <td><a href="/#/request/{{cycle._id}}" ng-click="set(cycle.key)" >{{cycle.request.description}}</a></td>
+                                    <td>Status: {{cycle.status}}</td>
+                                    <td>Approved By: {{cycle.approved_by}}</td>
+                                    <td>Approved By: {{cycle.approved_by}}</td>
+                                    <td>{{cycle.request.timeStamp}}</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
                 <div class="tab-pane" id="completed">
-                    <h1>Orange</h1>
-                    <p>orange orange orange orange orange</p>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Requests</div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tbody>
+                                    <tr ng-repeat="cycle in cycles" class="{{cycle.class}}" ng-show="cycle.status == 'prd'">
+                                    <td ><a href="/#/request/{{cycle._id}}" ng-click="set(cycle.key)" >{{cycle.request.description}}</a></td>
+                                        </tr>   
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="rejected">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Requests</div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tbody>
+                                        <tr ng-repeat="cycle in cycles" class="{{cycle.class}}" ng-show="cycle.status == 'closed'">
+                                            <td ><a href="/#/request/{{cycle._id}}" ng-click="set(cycle.key)" >{{cycle.request.description}}</a></td>
+                                            </tr>   
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
                 </div>
-
-
-            </div>
-        </div>
 
 </div> <!-- container -->

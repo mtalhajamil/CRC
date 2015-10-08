@@ -1,0 +1,28 @@
+{
+  "name": "public",
+  "version": "0.0.0",
+  "homepage": "https://github.com/mtalhajamil/CRC",
+  "authors": [
+    "mtalhajamil <mtalhajamil93@gmail.com>"
+  ],
+  "description": "Client side of CRC",
+  "main": "app.js",
+  "moduleType": [],
+  "keywords": [
+    "CRC"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-loader": "~1.4.0",
+    "angular-mocks": "~1.4.0",
+    "angular-route": "~1.4.0",
+    "html5-boilerplate": "~5.2.0"
+  }
+}

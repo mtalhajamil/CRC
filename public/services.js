@@ -12,6 +12,24 @@ factory('ergastAPIservice', function($http,$location,$window,$rootScope,$q) {
 
   var ergastAPI = {};
 
+  var def = $q.defer();
+
+  getUsers = function() {
+    return $http({
+      method: 'GET', 
+      url: '/getUsers'
+    }).success(function(data) {
+      def.resolve(data);
+    });
+
+    return def.promise;
+  }
+  
+  var userData = getUsers().then(function(userData){
+    $rootScope.userInformation = userData;
+  });
+  
+  
 
   ///////////////////////////Request/////////////////////////////
 
@@ -46,25 +64,6 @@ factory('ergastAPIservice', function($http,$location,$window,$rootScope,$q) {
 
 }
 
-ergastAPI.getCyclesForPowerUser = function(formData) {
-    return $http.post('/getCyclesForPowerUser', formData).success(function (data) {   
-   });
-
-  }
-
-ergastAPI.getCyclesForApplicationManager = function(formData) {
-    return $http.post('/getCyclesForApplicationManager', formData).success(function (data) {   
-    alert(data);
-   });
-
-  }
-
-ergastAPI.getCyclesForApplicationOwner = function(formData) {
-    return $http.post('/getCyclesForApplicationOwner', formData).success(function (data) {   
-    alert(data);
-   });
-
-  }
 
 var abc = null;
 ergastAPI.getRequestById =function (oid){
@@ -78,8 +77,32 @@ ergastAPI.getRequestById =function (oid){
     
   });
   
-    return deferred.promise;
-  }
+  return deferred.promise;
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////Status//////////////////////////////////////////
+
+ergastAPI.getCyclesForPowerUser = function(formData) {
+  return $http.post('/getCyclesForPowerUser', formData).success(function (data) {   
+  });
+
+}
+
+ergastAPI.getCyclesForApplicationManager = function(formData) {
+  return $http.post('/getCyclesForApplicationManager', formData).success(function (data) {   
+  });
+
+}
+
+ergastAPI.getCyclesForApplicationOwner = function(formData) {
+  return $http.post('/getCyclesForApplicationOwner', formData).success(function (data) {   
+  });
+
+}
+
 
   ////////////////////////////////////////////////////////////////////
 
@@ -98,12 +121,6 @@ ergastAPI.getRequestById =function (oid){
       method: 'GET', 
       url: '/getUsers'
     });
-  }
-
-  ergastAPI.updateRole = function(updateJSON) {
-    $http.post('/updateRole', updateJSON).success(function (data) {
-        //alert(data);   
-      });
   }
 
   ergastAPI.updateUser = function(updateJSON) {

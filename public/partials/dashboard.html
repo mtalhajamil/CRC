@@ -8,53 +8,40 @@
                     Dashboard
                     <small></small>
                 </h1>
-
-
-
                 <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-default">
-                            
                             <div class="panel-body">
-
-
-
-
                                 <div class="form-group">
                                     <label class="col-md-6 dashboardTitle">Username:</label>
                                     <div class="col-md-6">
                                         <label class="col-md-6 dashboardText">{{userInfo.username}}</label>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <label class="col-md-6 dashboardTitle">Email:</label>
                                     <div class="col-md-6">
                                         <label class="col-md-6 dashboardText">{{userInfo.email}}</label>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <label class="col-md-6 dashboardTitle">Change Pasword:</label>
                                     <div class="col-md-6">
-                                        <label class="col-md-6 dashboardText">Change Password</label>
+                                        <label class="col-md-6 dashboardText"><a href="#/dashboard" data-toggle="modal" data-target="#changePassModal">Change Password</a></label>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <label class="col-md-6 dashboardTitle">Role:</label>
                                     <div class="col-md-6">
                                         <label class="col-md-6 dashboardText">{{userInfo.role}}</label>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <label class="col-md-6 dashboardTitle">Modules:</label>
                                     <div class="col-md-6">
                                         <label class="col-md-6 dashboardText">{{userInfo.modules}}</label>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <label class="col-md-6 dashboardTitle">Designation:</label>
                                     <div class="col-md-6">
@@ -63,14 +50,64 @@
                                 </div>
 
 
+
+
+
+                                <!-- Modal -->
+                                <div id="changePassModal" class="modal fade" role="dialog">
+                                  <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Change Password</h4>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <div class="form-group">
+                                        <label class="col-md-4 control-label">Current Password</label>
+                                            <div class="col-md-6">
+                                                <input type="password" class="form-control" ng-model="formData.oldPassword" name="email">
+                                            </div>
+                                        </div>
+
+                                        <br />
+
+                                        <div class="form-group">
+                                        <label class="col-md-4 control-label">New Password</label>
+                                            <div class="col-md-6">
+                                                <input type="password" class="form-control" ng-model="formData.newPassword" name="email">
+                                            </div>
+                                        </div>
+
+                                        <br />
+
+                                        <div class="form-group">
+                                        <label class="col-md-4 control-label">Confirm Password</label>
+                                            <div class="col-md-6">
+                                                <input type="password" class="form-control" ng-model="formData.confirmPassword" name="email">
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" ng-click="changePassword(userInfo._id)" class="col-md-12 btn btn-success" data-dismiss="modal">Change Password</button>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
+
+
+
+
+
                     </div>
                 </div>
-
-
-
-
             </div>
         </div>
     </div>
+</div>
+</div>

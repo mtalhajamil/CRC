@@ -2,6 +2,66 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
+				<div class="panel-heading">Status</div>
+				<div class="panel-body">
+						<div class="form-group">
+							<label class="col-md-2 control-label">Status</label>
+							<div class="col-md-10">
+								<input type="text" id="status" class="form-control" ng-model="mesg.status" name="status" disabled>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-2 control-label">Approved By</label>
+							<div class="col-md-10">
+								<input type="text" id="approved_by" class="form-control" ng-model="mesg.approved_by" name="approved_by" disabled>
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container-fluid">
+	<div class="row">
+
+
+			<div class="col-md-8 col-md-offset-2">
+
+				<div class="panel panel-default">
+					<div class="panel-heading">History</div>
+
+
+					<div class="table-responsive">
+						<table class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>Comments</th>
+									<th>From</th>
+									<th>Role</th>
+									<th>Date</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="i in changedComments">
+									<td><label>{{i.comments}}</label></td>
+									<td><label>{{i.By}}</label></td>
+									<td><label>{{i.Role}}</label></td>
+									<td><label>{{i.timeStamp}}</label></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+			</div>
+	</div>
+
+</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<div class="panel panel-default">
 				<div class="panel-heading">SAP Development and Change Request Form</div>
 				<div class="panel-body">
 
@@ -125,18 +185,27 @@
 						</div>
 
 
-						<div class="form-group" ng-show="IsVisible">
-							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" ng-click="register()" class="btn btn-success">Submit Request</button>
+						<div class="form-group" ng-show="pUserVisibility">
+							<div class="col-md-2 col-md-offset-3">
+								<button type="submit" ng-click="updateRequest()" class="btn btn-success">Update Request</button>
 							</div>
 						</div>
 
-						<div class="form-group" ng-show="IsVisible1">
+						<div class="form-group" ng-show="aManagerVisibility">
 							<div class="col-md-2 col-md-offset-3">
-								<button type="submit" ng-click="accept()" class="btn btn-success">Accept</button>
+								<button type="submit" ng-click="aManagerAccept()" class="btn btn-success">Accept</button>
 							</div>
 							<div class="col-md-2">
 							<button class="btn btn-success" data-toggle="modal" data-target="#rejectModal">Reject</button>	
+							</div>		
+						</div>
+
+						<div class="form-group" ng-show="aOwnerVisibility">
+							<div class="col-md-2 col-md-offset-3">
+								<button type="submit" ng-click="aOwnerAccept()" class="btn btn-success">Accept</button>
+							</div>
+							<div class="col-md-2">
+							<button type="submit" ng-click="aOwnerReject()" class="btn btn-success">Reject & Close Cycle</button>	
 							</div>		
 						</div>
 
@@ -154,7 +223,7 @@
 											</div>
 											<div class="form-group">
 												<div class="col-md-6 col-md-offset-3">
-													<button type="submit" ng-click="reject()" class="btn btn-success">Reject</button>
+													<button type="submit" ng-click="aMangerReject()" data-dismiss="modal" class="btn btn-success">Reject</button>
 												</div>
 											</div>	
 									</div>

@@ -4,26 +4,39 @@
  * For details, see http://www.apache.org/licenses/LICENSE-2.0.
  */
 
-body {
-    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-    background-image: url('../img/greenBack1.jpg');
-}
+ body {
+ 	padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+ 	background-image: url('../img/greenBack1.jpg');
+ }
 
-footer {
-    margin: 50px 0;
-}
+ footer {
+ 	margin: 50px 0;
+ }
 
-.dashboardTitle {
-	color: #003300;
-	font-weight: bold;
-	white-space: pre;
-	text-align: right;
+ .dashboardTitle {
+ 	color: #003300;
+ 	font-weight: bold;
+ 	white-space: pre;
+ 	text-align: right;
 
-}
+ }
 
-.dashboardText {
-	color: #003300;
-	font-weight: normal;
-	white-space: pre;
-	text-align: left;
-}
+ .dashboardText {
+ 	color: #003300;
+ 	font-weight: normal;
+ 	white-space: pre;
+ 	text-align: left;
+ }
+
+.text_type_bold{
+ 	font-style:none;
+ 	font-weight:bold;
+ 	color: black;
+ 	font-color: black;
+ 	font-size: 15;
+ }
+
+ .text_type_italic{
+ 	font-weight:normal;
+ 	font-style:italic;
+ }

@@ -1,19 +1,12 @@
-var express = require('express')
-, passport = require('passport')
-, util = require('util')
-, LocalStrategy = require('passport-local').Strategy;
-
+var express = require('express');
 var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var monk = require('monk');
-
-//var flash    = require('connect-flash');
-
 var db = monk('localhost:27017/CRC');
-
-
 var nodemailer = require('nodemailer');
+var Promise = require("bluebird");
+
+
 
 var transporter = nodemailer.createTransport({
   service: 'Gmail',
@@ -65,46 +58,26 @@ app.post('/register', function(req, res){
 
   });
 
-// app.post('/postBlog', function(req, res){
-
-//   var collection = db.get('blogCollection');
-//   var formObject = {author:req.user.username,title:req.body.title,blog:req.body.blog};
-//     // Submit to the DB
-//     collection.insert(
-//       formObject, function (err, doc) {
-//         if (err) {
-//             // If it failed, return error
-//             res.send("There was a problem adding the information to the database.");
-//           }
-//           else {
-//             res.sendStatus(200);
-//           }
-//         });
-
-//   });
-
 
 app.post('/updateUser', function(req, res){
 
   var collection = db.get('userCollection');
- // console.log(req.body);
- collection.update(
-  {_id: req.body._id}, req.body , function (err, doc) {
-    if (err) {
+  collection.update(
+    {_id: req.body._id}, req.body , function (err, doc) {
+      if (err) {
 
-      res.send(err);
-    }
-    else {
-      res.send("User Updated");
-    }
-  });
+        res.send(err);
+      }
+      else {
+        res.send("User Updated");
+      }
+    });
 });
 
 
 app.post('/deleteUser', function(req, res){
 
   var collection = db.get('userCollection');
-  //console.log(req.body);
   collection.remove(
     {_id: req.body._id}, function (err, doc) {
       if (err) {
@@ -117,27 +90,6 @@ app.post('/deleteUser', function(req, res){
 
 });
 
-
-app.post('/updateRole', function(req, res){
-
-  var collection = db.get('userCollection');
-
-    //console.log(req.body);
-
-    // Submit to the DB
-    collection.findAndModify(
-      { _id: req.body.id }, { $set: {role: req.body.role } }, function (err, doc) {
-        if (err) {
-            // If it failed, return error
-            res.send(err);
-          }
-          else {
-            res.sendStatus(200);
-          }
-        });
-
-  });
-
 app.get("/getUsers", function(req,res,next){
 
   var collection = db.get('userCollection');
@@ -148,8 +100,6 @@ app.get("/getUsers", function(req,res,next){
   });
 });
 
-
-
 app.post("/getUser", function(req,res,next){
   //console.log(req.body);
   var collection = db.get('userCollection');
@@ -158,10 +108,6 @@ app.post("/getUser", function(req,res,next){
     res.send(docs);
   });
 });
-
-
-
-
 
 /////////////////////////////request/////////////////////////////////
 
@@ -192,7 +138,7 @@ app.post("/getCyclesForPowerUser",function(req,res,next){
 app.post("/getCyclesForApplicationManager",function(req,res,next){
 
   var collection = db.get('cycle');
-  collection.find({"request.modules":{$in:req.body.modules}},{},function(err,docs){
+  collection.find({"request.func":{$in:req.body.modules}},{},function(err,docs){
     if (err) {
       res.send(err);
     }
@@ -205,14 +151,17 @@ app.post("/getCyclesForApplicationManager",function(req,res,next){
 app.post("/getCyclesForApplicationOwner",function(req,res,next){
 
   var collection = db.get('cycle');
-  collection.find({"request.username":req.body.username},{},function(err,docs){
-    if (err) {
-      res.send(err);
-    }
-    else {
-      res.send(docs);
-    }
-  });
+  collection.find({ $and : [
+    { "request.func":{$in:req.body.modules} },
+    { $or : [ {$and : [ { status : "initial" }, {approved_by: "aManager" } ]}, { status : "dev" },{ status : "prd" },{ status : "closed" } ] }
+    ]},{},function(err,docs){
+      if (err) {
+        res.send(err);
+      }
+      else {
+        res.send(docs);
+      }
+    });
 });
 
 app.post("/getRequestById", function(req,res,next){
@@ -263,46 +212,37 @@ app.post('/addRequest', function(req, res){
         res.send("There was a problem adding the information to the database.");
       }
       else {
-            // res.send("Record Inserted"); 
-          }
-        });
+       //res.send("Request Generated"); 
+     }
+   });
 
+  var collection2 = db.get('userCollection');
+  collection2.find({'role': "aManager", 'modules': { $in:[req.body.func]}},{},function (err, doc) {
+    if (err) {
+      res.send("There was a problem adding the information to the database.");
+    }
+    else {
+     while(1){
 
-      //var deferred = Q.defer();
-
-
-      var collection2 = db.get('userCollection');
-      collection2.find({'role': "aManager", 'modules': { $in:[req.body.func]}},{},function (err, doc) {
-        if (err) {
-            // If it failed, return error
-            res.send("There was a problem adding the information to the database.");
-            //console.log("faliure");
-          }
-          else {
-           while(1){
-
-            if(doc){
-                  //console.log(doc[0].email);
-                  emailCall(doc[0].email,req.body,res);
-                  break;
-                }
-              }
-
-            }
-          });
-
-     // console.log(deferred.promise);
-    // promise.then(function(result){
-    //   console.log(result);
-    // },
-    // function(error){
-    // });
-
-
+      if(doc){
+        if(doc.length == 0){
+          res.send("No application manager for this module");
+          break;
+        }else{
+         for(var i=0;i<doc.length;i++) {
+          emailCall(doc[i].email,req.body);
+        }
+        res.send("Request Generated & Email Sent To Application Manager"); 
+        break;
+      }
+    }
+  }
+}
+});
 });
 
 
-function emailCall(email,request,res){
+function emailCall(email,request){
 
   //console.log(email);
 
@@ -311,7 +251,7 @@ function emailCall(email,request,res){
               to: email, // list of receivers
               subject: 'A Change in Module has been requested', // Subject line
               text: 'Request Nature:,Check link:', // plaintext body
-              html: '<b>Request Nature:'+ request.natureOfRequest +'</b><br />Go to: <a href="#">link</a>' // html body
+              html: '<b>Request Nature:'+ request.natureOfRequest +'</b><br />Go to: <a href="http://localhost:3030/#/request/'+request._id+'">Link To Cycle</a>' // html body
             };
 
             transporter.sendMail(mailOptions, function(error, info){
@@ -320,7 +260,6 @@ function emailCall(email,request,res){
                 //res.send("Email Not Sent");
               }else{
                 //console.log("done email");
-                res.send("Request Generated & Email Sent"); 
                 //res.send("Email Sent To Application Manager" + docs.email);
               }
             });
@@ -328,9 +267,6 @@ function emailCall(email,request,res){
 
 
 /////////////////////////////////////////////////////////////////////
-
-
-
 
 app.listen(3030);
 

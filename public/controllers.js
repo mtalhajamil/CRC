@@ -10,64 +10,198 @@ controller('indexController', function($scope,$location,authenticationSvc,loginD
 }).
 controller('requestController',function($scope,$routeParams,ergastAPIservice,authenticationSvc,sample, check_user){
 
-
-
-  $scope.sample = sample;
-  $scope.check_user = check_user;
-
-  if ($scope.sample.role == 'aManager'){
-    $scope.IsVisible = false;
-    $scope.IsVisible1 = true;
-  }
-  else {
-    $scope.IsVisible1 = false;
-    $scope.IsVisible = true; 
-  }
+  var status = "";
+  var userInfo = authenticationSvc.getUserInfo();
   var string = '{"id": "'+$routeParams.key+'"}';
   var obj = JSON.parse(string);
-  var abc = ergastAPIservice.getRequestById(obj).then(function(mesg){
-
+  var forReturn = ergastAPIservice.getRequestById(obj).then(function(mesg){
     $scope.mesg = mesg;
+
+    if ( mesg.comments != null)
+    {
+      var changedComments = mesg.comments;
+      for (var j=0; j <changedComments.length; j++)
+      {
+        if (changedComments[j].Role== 'aManager')
+        {
+          changedComments[j].Role = "Application Manager";
+        }
+
+      }
+      $scope.changedComments = changedComments;
+    }
+    
+
+
+    if($scope.mesg.status == "initial")
+      status = "dev";
+    else
+      status = "prd";
+
+
+    $scope.pUserVisibility = false; 
+    $scope.aManagerVisibility = false;
+    $scope.aOwnerVisibility = false;
+
+    if(userInfo.role == 'pUser'){ 
+      if($scope.mesg.approved_by == 'none')
+        $scope.pUserVisibility = true;
+    }else if(userInfo.role == 'aManager'){
+      if($scope.mesg.approved_by != 'aManager')
+        $scope.aManagerVisibility = true;
+    }else if(userInfo.role == 'aOwner'){
+      if($scope.mesg.approved_by != 'aOwner')
+        $scope.aOwnerVisibility = true;
+    }
+
 
   });
 
-  $scope.accept= function(){
-    $scope.mesg.approved_by = "aManager";
-    ergastAPIservice.updateRequest($scope.mesg);
-    alert("Request Approved & Sent To Application Owner");
-  }
+  $scope.check_user = check_user;
 
-  $scope.reject = function(){
-   var timeStamp = new Date().getTime();
-   var userInfo = authenticationSvc.getUserInfo();
-   
 
-     //var string= '{"comments": "'+ $scope.mesg.request.comments+'", "By": + "'+ userInfo.username +'","Role": "'+userInfo.role+'", "timeStamp": "'+ timeStamp+'"}';
-     var string= '{"comments": "'+ $scope.mesg.request.comments+'", "By": "'+ userInfo.username+'","Role": "'+userInfo.role+'", "timeStamp": "'+ timeStamp+'"}';
-     
-     var obj = JSON.parse(string);
-     $scope.mesg.comments = obj;
+  $scope.updateRequest = function(){
+   var arr= [{"pUser": 0, "aManager":1 , "aOwner": 0}];
+   $scope.mesg.request.seen = arr;
+   ergastAPIservice.updateRequest($scope.mesg);
+   alert("Updated Request has been sent");
+
+ }
+
+ $scope.aManagerAccept= function(){
+  $scope.mesg.approved_by = "aManager";
+  $scope.aManagerVisibility = false;
+  addApprovals();
+  alert("Request Approved & Sent To Application Owner");
+}
+
+$scope.aMangerReject = function(){
+  rejectionComments();
+}
+
+$scope.aOwnerAccept= function(){
+  $scope.mesg.approved_by = "aOwner";
+  $scope.mesg.status = status;
+  addApprovals();
+  $scope.aOwnerVisibility = false;
+  alert("Request Approved");
+}
+
+$scope.aOwnerReject= function(){
+  $scope.mesg.status = "closed";
+  ergastAPIservice.updateRequest($scope.mesg);
+  $scope.aOwnerVisibility = false;
+  alert("Cycle Closed");
+  var arr= [{"pUser": 1, "aManager":1 , "aOwner": 0}];
+
+  $scope.mesg.request.seen = arr;
      //$scope.mesg.comments[1] = obj;
      ergastAPIservice.updateRequest($scope.mesg);
-
    }
 
- }).
+   function rejectionComments(){
+
+    var timeStamp = new Date(); 
+
+    // if (count >0)
+    if ($scope.mesg.comments == null){
+      var jsonArray = [ 
+      {"comments": $scope.mesg.request.comments , "By": userInfo.username , "Role" : userInfo.role , "timeStamp" : timeStamp.toDateString()}
+      ];
+      $scope.mesg.comments = jsonArray;
+      alert("Rejected");
+      var arr= [{"pUser": 1, "aManager":0 , "aOwner": 0}];
+
+      $scope.mesg.request.seen = arr;
+     //$scope.mesg.comments[1] = obj;
+     ergastAPIservice.updateRequest($scope.mesg);
+   }
+   else 
+   {
+    var count = Object.keys($scope.mesg.comments).length;
+    alert("Rejected");
+    var jsonArray = [];
+    for (var i=0; i< count; i++)
+    {
+
+      jsonArray[i]= $scope.mesg.comments[i];
+
+    }
+    jsonArray[count]= { "comments": $scope.mesg.request.comments, "By": userInfo.username, "Role": userInfo.role, "timeStamp" : timeStamp.toDateString()};
+
+    $scope.mesg.comments = jsonArray;
+
+    var arr= [{"pUser": 1, "aManager":0 , "aOwner": 0}];
+
+    $scope.mesg.request.seen = arr;
+          //$scope.mesg.comments[1] = obj;
+          ergastAPIservice.updateRequest($scope.mesg);
+
+        }
+      }
+
+
+      function addApprovals(){
+        var timeStamp = new Date();
+        if ($scope.mesg.approvals == null){
+          var jsonArray = [ 
+          {"name": userInfo.username , "role" : userInfo.role , "for" : status ,"timeStamp" : timeStamp.toDateString()}
+          ];
+          $scope.mesg.approvals = jsonArray;
+          if (userInfo.role == 'aManager')
+          {
+            var arr= [{"pUser": 1, "aManager":0 , "aOwner": 1}];
+          }
+          else if (userInfo.role == 'aOwner')
+          {
+            var arr= [{"pUser": 1, "aManager":1 , "aOwner": 0}];
+
+          }
+          $scope.mesg.request.seen = arr;
+            //$scope.mesg.comments[1] = obj;
+
+            ergastAPIservice.updateRequest($scope.mesg);
+          }
+          else 
+          {
+            var count = Object.keys($scope.mesg.approvals).length;
+            var jsonArray = [];
+            for (var i=0; i< count; i++)
+            {
+              jsonArray[i]= $scope.mesg.approvals[i];
+            }
+            jsonArray[count]= {"name": userInfo.username , "role" : userInfo.role , "for" : status ,"timeStamp" : timeStamp.toDateString()};
+          
+            $scope.mesg.approvals = jsonArray;
+            if (userInfo.role == 'aManager')
+            {
+              var arr= [{"pUser": 1, "aManager":0 , "aOwner": 1}];
+            }
+            else if (userInfo.role == 'aOwner')
+            {
+              var arr= [{"pUser": 1, "aManager":1 , "aOwner": 0}];
+              
+            }
+            $scope.mesg.request.seen = arr;
+
+            ergastAPIservice.updateRequest($scope.mesg);
+          }
+        }
+      }).
 controller('loginController', function($scope,authenticationSvc,loginDashboard) {
 
-    // $scope.login = function() {
-    //     ergastAPIservice.sendLoginData($scope.formData);
-    // }
+  $scope.login = function() {
 
-    $scope.login = function() {
-      var response = authenticationSvc.login($scope.formData);
-      
-    }
+    var response = authenticationSvc.login($scope.formData);
 
-    $scope.loginDashboard = loginDashboard;
-    $scope.loginDashboard.visible = false;
+  }
 
-  }).
+  $scope.loginDashboard = loginDashboard;
+  $scope.loginDashboard.visible = false;
+
+
+
+}).
 controller('registerController', function($scope,ergastAPIservice) {
 
   $scope.register = function() {
@@ -100,14 +234,18 @@ controller('registerController', function($scope,ergastAPIservice) {
 controller('composeController', function($scope,$location,$window,$rootScope,authenticationSvc,ergastAPIservice) {
 
  var userInfo = authenticationSvc.getUserInfo();
- var timeStamp = new Date().getTime();
-
- $scope.formData = { 'username': userInfo.username, 'timeStamp': new Date(timeStamp), 'designation': userInfo.designation};
+ var timeStamp = new Date();
+ 
+ $scope.formData = { 'username': userInfo.username, 'timeStamp': timeStamp.toDateString(), 'designation': userInfo.designation};
  $scope.modules = userInfo.modules;
+
 
  $scope.dropboxitemselected = function (item) {
   $scope.formData.func = item;
 }
+
+var arr= [{"pUser": 0, "aManager":1 , "aOwner": 0}];
+$scope.formData.seen = arr;
 
 $scope.register = function(){
   ergastAPIservice.sendRequest($scope.formData);
@@ -115,9 +253,15 @@ $scope.register = function(){
 }
 
 }).
-controller('dashboardController', function($scope,authenticationSvc,loginDashboard) {
+controller('dashboardController', function($scope,$rootScope,authenticationSvc,loginDashboard,ergastAPIservice) {
   $scope.userInfo = authenticationSvc.getUserInfo();
-  
+
+  $scope.changePassword = function(id) {
+  if($scope.formData.oldPassword != $scope.userInfo.password)
+      alert("Current Password Incorrect");
+  else if($scope.formData.newPassword != $scope.formData.confirmPassword)
+      alert("Passwords Don't Match");
+  }
 
   $scope.loginDashboard = loginDashboard;
   $scope.loginDashboard.visible = true;
@@ -129,51 +273,44 @@ controller('userControlController', function($scope,ergastAPIservice) {
   });
 
 
+  $scope.updateUser = function(index){
+    ergastAPIservice.updateUser($scope.usersList[index]);
+  }
 
-  $scope.ChangeOfRole = function(id,role){
-        //alert(id+"---"+role);
-        var updateJSON = {"id":id,"role":role};
-        ergastAPIservice.updateRole(updateJSON);
-      }
-
-      $scope.updateUser = function(index){
-        ergastAPIservice.updateUser($scope.usersList[index]);
-      }
-
-      $scope.deleteUser = function(index){
+  $scope.deleteUser = function(index){
 
 
-        var r = confirm("Are you sure?");
-        if (r == true) {
-          ergastAPIservice.deleteUser($scope.usersList[index]);
+    var r = confirm("Are you sure?");
+    if (r == true) {
+      ergastAPIservice.deleteUser($scope.usersList[index]);
 
-          ergastAPIservice.getUsers().success(function(res){
-            $scope.usersList = res;
-          });
-        }
-      }
-
-
-      $scope.roles = [
-      {"id": "FI", "name": "Financial Accounting", "assignable": true},
-      {"id": "CO", "name": "Controlling", "assignable": true},
-      {"id": "SD", "name": "Sales and Distribution", "assignable": true},
-      {"id": "HCM", "name": "Human Capital Management", "assignable": true},
-      {"id": "MM", "name": "Materials Management", "assignable": true},
-      {"id": "QM", "name": "Quality Management", "assignable": true},
-      {"id": "LE", "name": "Logistics Execution", "assignable": true},
-      {"id": "WMS", "name": "Warehouse Management System", "assignable": true},
-      {"id": "PP", "name": "Production Planning", "assignable": true},
-      {"id": "PM", "name": "Plant Maintenance", "assignable": true},
-      {"id": "BASIS", "name": "SAP Admin", "assignable": true},
-      {"id": "ABAP", "name": "Programming", "assignable": true}
-      ];
+      ergastAPIservice.getUsers().success(function(res){
+        $scope.usersList = res;
+      });
+    }
+  }
 
 
-      $scope.member = {roles: []};
-      $scope.selected_items = [];
+  $scope.roles = [
+  {"id": "FI", "name": "Financial Accounting", "assignable": true},
+  {"id": "CO", "name": "Controlling", "assignable": true},
+  {"id": "SD", "name": "Sales and Distribution", "assignable": true},
+  {"id": "HCM", "name": "Human Capital Management", "assignable": true},
+  {"id": "MM", "name": "Materials Management", "assignable": true},
+  {"id": "QM", "name": "Quality Management", "assignable": true},
+  {"id": "LE", "name": "Logistics Execution", "assignable": true},
+  {"id": "WMS", "name": "Warehouse Management System", "assignable": true},
+  {"id": "PP", "name": "Production Planning", "assignable": true},
+  {"id": "PM", "name": "Plant Maintenance", "assignable": true},
+  {"id": "BASIS", "name": "SAP Admin", "assignable": true},
+  {"id": "ABAP", "name": "Programming", "assignable": true}
+  ];
 
-    }).
+
+  $scope.member = {roles: []};
+  $scope.selected_items = [];
+
+}).
 controller('statusController', function($scope,ergastAPIservice,authenticationSvc, sample,check_user) {
 
   $scope.check_user = check_user;
@@ -184,32 +321,100 @@ controller('statusController', function($scope,ergastAPIservice,authenticationSv
   if(userInfo.role == "pUser"){
     var JSONusername = {"username":userInfo.username};
     ergastAPIservice.getCyclesForPowerUser(JSONusername).success(function(res){
-      console.log(res);
-     $scope.cycles = res;
-   });
+     
+
+     for (var i=0; i<res.length; i++){
+      if (res[i].request.seen[0].pUser == 1)
+      {
+       res[i].class="text_type_bold";
+     }
+     else 
+     {
+      res[i].class = "text_type_not_bold";
+    }
+    res[i].key = i;
+  }
+
+  $scope.cycles = res;
+});
   }
 
   if(userInfo.role == "aManager"){
     var JSONmodules = {"modules":userInfo.modules};
     ergastAPIservice.getCyclesForApplicationManager(JSONmodules).success(function(res){
-      console.log(res);
-     $scope.cycles = res;
-   });
+
+
+     for (var i=0; i<res.length; i++){
+      if (res[i].request.seen[0].aManager == 1)
+      {
+       res[i].class="text_type_bold";
+     }
+     else 
+     {
+      res[i].class = "text_type_not_bold";
+    }
+    res[i].key = i;
+  }
+
+  $scope.cycles = res;
+});
   }
 
   if(userInfo.role == "aOwner"){
     var JSONmodules = {"modules":userInfo.modules};
     ergastAPIservice.getCyclesForApplicationOwner(JSONmodules).success(function(res){
-      console.log(res);
-     $scope.cycles = res;
-   });
+
+      for (var i=0; i<res.length; i++){
+        if (res[i].request.seen[0].aOwner == 1)
+        {
+         res[i].class="text_type_bold";
+       }
+       else 
+       {
+        res[i].class = "text_type_not_bold";
+      }
+      res[i].key = i;
+    }
+
+    $scope.cycles = res;
+  });
   }
 
-  $scope.set = function()
+
+
+
+  $scope.set = function(key)
   {   
     $scope.sample= sample;
     $scope.sample.role = userInfo.role;
+    if (userInfo.role == 'aManager')
+    {
+      if ($scope.cycles[key].request.seen[0].aManager == 1)
+      {
+        $scope.cycles[key].request.seen[0].aManager = 0;
+      }
+
+    //var arr= [{"pUser": 0, "aManager":0 , "aOwner": 0}];
   }
+  else if (userInfo.role == 'aOwner')
+  {
+    if ($scope.cycles[key].request.seen[0].aOwner == 1)
+    {
+      $scope.cycles[key].request.seen[0].aManager = 0;
+    }
+  }
+  else 
+  {
+   if ($scope.cycles[key].request.seen[0].pUser == 1)
+   {
+    $scope.cycles[key].request.seen[0].pUser = 0;
+  }
+}
+   ergastAPIservice.updateRequest($scope.cycles[key]);
+
+
+
+ }
 
 });
 
