@@ -428,7 +428,7 @@ directive('dropdownMultiselect', function(){
     pre_selected: '=preSelected'
   },
   template: "<div class='btn-group' data-ng-class='{open: open}'>"+
-  "<button class='btn btn-success dropdown-toggle' data-ng-click='open=!open;openDropdown()'>Module<span class='caret'></span></button>"+
+  "<button class='btn btn-default dropdown-toggle' data-ng-click='open=!open;openDropdown()'>Module<span class='caret'></span></button>"+
   "<ul class='dropdown-menu' aria-labelledby='dropdownMenu'>" + 
   "<li><a data-ng-click='selectAll()'><i class='glyphicon glyphicon-ok-sign pull-right'></i>  Check All</a></li>" +
   "<li><a data-ng-click='deselectAll();'><i class='glyphicon glyphicon-remove-sign pull-right'></i>  Uncheck All</a></li>" +                    

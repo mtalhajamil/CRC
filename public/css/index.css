@@ -6,7 +6,7 @@
 
  body {
  	padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
- 	background-image: url('../img/greenBack1.jpg');
+ 	background-color: #806645;
  }
 
  footer {
@@ -39,4 +39,12 @@
  .text_type_italic{
  	font-weight:normal;
  	font-style:italic;
+ }
+
+ .lifeDiv {
+ 	margin: 20px 50px 20px 230px;
+ 	width: 64%;
+ 	height: 220px;
+ 	overflow: hidden;
+ 	
  }

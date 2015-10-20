@@ -153,7 +153,7 @@ factory("authenticationSvc", function($http, $q, $window) {
     }
   }
 
-  init();
+  //init();
   
 
   function login(dataJSON) {
@@ -189,6 +189,7 @@ factory("authenticationSvc", function($http, $q, $window) {
 
 
   function getUserInfo() {
+    console.log(userInfo);
     return userInfo;
   }
 

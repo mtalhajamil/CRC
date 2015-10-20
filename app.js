@@ -5,7 +5,16 @@ var monk = require('monk');
 var db = monk('localhost:27017/CRC');
 var nodemailer = require('nodemailer');
 var Promise = require("bluebird");
+var ActiveDirectory = require('activedirectory');
+var macfromip = require('macfromip');
 
+
+
+var config = { url: 'ldap://ef-ad.iefl.com',
+baseDN: 'dc=iefl,dc=com',
+username: 'TestConnect@iefl.com',
+password: 'Pass@123' }
+var ad = new ActiveDirectory(config);
 
 
 var transporter = nodemailer.createTransport({
@@ -43,7 +52,7 @@ app.post('/register', function(req, res){
   req.body.backup = "";
   req.body.active = true;
 
-    //console.log(req.body);
+
     // Submit to the DB
     collection.insert(
       req.body, function (err, doc) {
@@ -100,12 +109,72 @@ app.get("/getUsers", function(req,res,next){
   });
 });
 
+
+
+// app.post("/getUser", function(req,res,next){
+//   //console.log(req.body);
+
+//   var ad = new ActiveDirectory(config);
+//   var username = req.body.email;
+//   var password = req.body.password;
+
+//   ad.authenticate(username, password, function(err, auth) {
+//     if (err) {
+//       console.log('ERROR: '+JSON.stringify(err));
+//       return;
+//     }
+
+//     if (auth) {
+//       var collection = db.get('userCollection');
+//       collection.find({'email': req.body.email},{},function(e,docs){    
+//         res.send(docs);
+//       });
+//       console.log('Authenticated!');
+//     }
+//     else {
+//       res.send(docs);
+//       console.log('Authentication failed!');
+//     }
+//   });
+
+
+// });
+
+
 app.post("/getUser", function(req,res,next){
   //console.log(req.body);
+
+  
+  
+
+
   var collection = db.get('userCollection');
   collection.find({'email': req.body.email, 'password': req.body.password},{},function(e,docs){
     //console.log(docs);
-    res.send(docs);
+
+    while(1){
+      if(docs){
+        macfromip.getMac(req.ip.substring(7), function(err, data){
+          if(err){
+            console.log(err);
+          }else{
+            docs[0].mac = data;
+            docs[0].ip = req.ip.substring(7);
+            console.log(docs);
+            res.send(docs);
+            
+          }
+          
+          //console.log(data);
+
+        });
+        break;
+      }
+    }
+
+
+
+    
   });
 });
 
@@ -269,4 +338,7 @@ function emailCall(email,request){
 /////////////////////////////////////////////////////////////////////
 
 app.listen(3030);
+
+
+
 
